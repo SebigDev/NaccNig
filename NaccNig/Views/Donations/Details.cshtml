@@ -1,0 +1,43 @@
+﻿@model NaccNig.Models.Payments.Donations
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Donations</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ActiveMember.StateOfDeployment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActiveMember.StateOfDeployment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsMadeDonations)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsMadeDonations)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentStatus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DonationsId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

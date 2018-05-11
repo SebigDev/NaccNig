@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using NaccNigModels.PopUp;
 namespace NaccNig.Models
 {
+
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
@@ -79,8 +81,14 @@ namespace NaccNig.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-    }
 
+        [Display(Name="Select Member Type")]
+        public string MemberCategoryId { get; set; }
+        [Display(Name = "Member Type")]
+        public MemberCategory MemberCategory { get; set; }
+
+    }
+ 
     public class ResetPasswordViewModel
     {
         [Required]

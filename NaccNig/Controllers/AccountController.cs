@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -8,7 +9,10 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using NaccNig;
 using NaccNig.Models;
+using NaccNig.ViewModels;
+using NaccNigModels.PopUp;
 
 namespace NaccNig.Controllers
 {
@@ -17,9 +21,12 @@ namespace NaccNig.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private NaccNigDbContext db;
+
 
         public AccountController()
         {
+            db = new NaccNigDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -79,7 +86,7 @@ namespace NaccNig.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("CustomDashboard", new { username = model.Email, returnUrl = returnUrl });
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -89,6 +96,31 @@ namespace NaccNig.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+        public ActionResult CustomDashboard(string returnUrl)
+        {
+            if (User.IsInRole(RoleName.ActiveMember))
+            { 
+                TempData["Title"] = "Success.";
+                return RedirectToAction("Dashboard", "ActiveMembers");
+            }
+            if (User.IsInRole(RoleName.PastMember))
+            {
+                TempData["Title"] = "Success.";
+                return RedirectToAction("Dashboard", "PastMembers");
+            }
+            if (User.IsInRole(RoleName.ExecutiveMember))
+            {
+                TempData["Title"] = "Success.";
+                return RedirectToAction("Dashboard","ExectiveMembers");
+            }
+            if (User.IsInRole(RoleName.Admin))
+            {
+                TempData["Title"] = "Success.";
+                return RedirectToAction("Dashboard", "Home");
+            }
+            return RedirectToAction("Index", "Home");
+
         }
 
         //
@@ -139,7 +171,12 @@ namespace NaccNig.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            var category = from MemberCategory m in Enum.GetValues(typeof(MemberCategory))
+                        select new { ID = m, Name = m.ToString() };
+
+            ViewBag.MemberCategory = new SelectList(category, "Name", "Name");
             return View();
+            
         }
 
         //
@@ -151,11 +188,18 @@ namespace NaccNig.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var user = new ApplicationUser
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    UserName = model.Email,
+                    Email = model.Email
+                };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+               if(result.Succeeded)
+                {
+                    
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await this.UserManager.AddToRoleAsync(user.Id, model.MemberCategory.ToString());
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -163,13 +207,22 @@ namespace NaccNig.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return View("RegisterRedirection");
                 }
+               
                 AddErrors(result);
             }
+            var category = from MemberCategory m in Enum.GetValues(typeof(MemberCategory))
+                           select new { ID = m, Name = m.ToString() };
 
+            ViewBag.MemberCategory = new SelectList(category, "Name", "Name");
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public ActionResult RegisterRedirection()
+        {
+            return View();
         }
 
         //

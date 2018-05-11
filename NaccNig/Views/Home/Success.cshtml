@@ -1,0 +1,24 @@
+﻿@using NaccNig.Models
+@model NaccNig.Models.ApplicationUser
+    @{ 
+        ViewBag.Title = "Register Success Page";
+    }
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<br /><br />
+<div class="jumbotron">
+    @if (Request.IsAuthenticated)
+    {
+    <h4 class="alert alert-success panel-heading text-center">@ViewBag.Message</h4>
+         if (User.IsInRole(RoleName.ActiveMember) || User.IsInRole(RoleName.Admin))
+    {
+        <p class="text-center panel-body">Please @Html.ActionLink("Update Your Profile", "ProfileUpdate", "ActiveMembers")</p>
+        }
+        if(User.IsInRole(RoleName.PastMember))
+        {
+        <p class="text-center panel-body">Please @Html.ActionLink("Update Your Profile", "ProfileUpdate", "PatMembers")</p>
+        }
+      
+    }
+
+</div>

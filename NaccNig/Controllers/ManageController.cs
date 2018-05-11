@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using NaccNig;
+using NaccNig.Controllers;
 using NaccNig.Models;
 
-namespace NaccNig.Controllers
+namespace NaccNigModels.Controllers
 {
     [Authorize]
     public class ManageController : Controller

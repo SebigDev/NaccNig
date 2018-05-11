@@ -1,0 +1,45 @@
+﻿@model NaccNig.ViewModels.MemberDashboardVM
+@{
+    ViewBag.Title = $"{Model.Firstname}'s Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="alert alert-info">@Model.Firstname's Profile</h3>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-8">
+            <div>
+                <p class="glyphicon-text-width"><b>Fullname</b>: <i>@Model.Fullname </i></p>
+            </div>
+            <div>
+                <p class="glyphicon-text-width"><b>State Code</b>: <i>@Model.StateCode </i></p>
+            </div>
+            <div>
+                <p class="glyphicon-text-width"><b>Call Up Number</b>: <i>@Model.CallUpNumber </i></p>
+            </div>
+            <div>
+                <p class="glyphicon-text-width"><b>State Posted To</b>: <i>@Model.StateOfDeployment </i></p>
+            </div>
+            <div>
+                <p class="glyphicon-text-width"><b>State Of Origin</b>: <i>@Model.StateOfOrigin </i></p>
+            </div>
+            <div>
+                <p class="glyphicon-text-width"><b>Age</b>: <i>@Model.Age </i></p>
+            </div>
+            <div>
+                <p class="glyphicon-text-width"><b>Sex</b>: <i>@Model.Gender </i></p>
+            </div>
+            <div>
+                <p class="glyphicon-text-width"><b>Phone</b>: <i>@Model.PhoneNumber </i></p>
+            </div>
+            <div>
+                <p class="glyphicon-text-width"><b>Address</b>: <i>@Model.Address </i></p>
+            </div>
+            <h3 class="btn btn-info" style="text-decoration:none">
+            @Html.ActionLink("Update Profile", "Update", new { id = Model.MemberId })</h3>
+        </div>
+        
+    </div>
+</div>
+

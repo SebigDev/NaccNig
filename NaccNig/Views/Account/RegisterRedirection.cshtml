@@ -1,0 +1,32 @@
+﻿@using NaccNig.Models
+@{
+    ViewBag.Title = "RegisterRedirection";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<div class="head-block">
+    <h1>Update Profile</h1>
+</div>
+<div class="cnt-block">
+    <div>
+        <p>
+            <h5>
+                <b>You have Registered Successfully, </b>
+                <br />
+                Kindly Click on the UPDATE PROFILE to Update your Profile
+            </h5>
+            <br />
+            @if (User.IsInRole(RoleName.ActiveMember))
+             {
+                <a class="btn" href="@Url.Action("ProfileUpdate", "ActiveMembers")">UPDATE PROFILE</a>
+             }
+            @if (User.IsInRole(RoleName.PastMember))
+
+              {
+                <a class="btn" href="@Url.Action("ProfileUpdate", "PastMembers")">UPDATE PROFILE</a>
+              }
+        </p>
+    </div>
+</div>
+
+
