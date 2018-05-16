@@ -46,7 +46,7 @@
                                                         <div class="agileits_grid">
                                                             <h4 class="text-success"><i>MEMBERSHIP TYPE</i></h4>
                                                             <div class="password">
-                                                                @Html.EnumDropDownListFor(m => m.MemberCategory,  "-- Select MemberType --", new { @class = "form-control" })
+                                                                @Html.DropDownListFor(m=>m.MemberCategory, null, "-- Select Member Type --", new { @class = "form-control" })
                                                             </div>
                                                             <div class="clear"></div>
                                                         </div>

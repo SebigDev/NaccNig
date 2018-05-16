@@ -1,5 +1,4 @@
-﻿using NaccNigModels.Payments;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -18,8 +17,5 @@ namespace NaccNigModels.Members
         [Required]
         [Display(Name = "Call Up Number")]
         public string CallUpNumber { get; set; }
-        public virtual ICollection<MemberRegistration> MemberRegistration { get; set; }
-        public virtual ICollection<Donations> Donations { get; set; }
-        public virtual ICollection<MonthlyDues> MonthlyDues { get; set; }
     }
 }

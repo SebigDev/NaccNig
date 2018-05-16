@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity;
 using NaccNigModels.Members;
 using NaccNig.Models;
 using NaccNig.ViewModels;
-using NaccNigModels.Payments;
 using NaccNigModels.PopUp;
 using System.Collections.Generic;
+using NaccNigModels.Blog;
 
 namespace NaccNigModels.Controllers
 {
@@ -57,147 +57,41 @@ namespace NaccNigModels.Controllers
                 model.Fullname = activeUser.Fullname;
                 model.Age = activeUser.Age;
             }
+            int blog = db.BlogList.Count();
+            ViewBag.Blog = blog;
             return View(model);
         }
 
-        public ActionResult SelectPayment()
+        public async Task<ActionResult> BlogLists()
         {
-            var myPaymentOptions = from PaymentOptionsName p in Enum.GetValues(typeof(PaymentOptionsName))
-                                   select new { ID = p, Name = p.ToString() };
-
-            ViewBag.PaymentOptionsName = new SelectList(myPaymentOptions, "Name", "Name");
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SelectPayment(PaymentOptionsVM model)
-        {
-            var paydata = await db.PaymentOptions.Include(s => s.ActiveMember).FirstOrDefaultAsync();
-           
-          
-            if (ModelState.IsValid)
-                {
-               
-                    if (model.PaymentOptionsName.Equals(PaymentOptionsName.MemberRegistration.ToString()))
-                    {
-                        return RedirectToAction("MemberRegistration");
-                    }
-                    if (model.PaymentOptionsName.Equals(PaymentOptionsName.MonthlyDues.ToString()))
-                    {
-                        return RedirectToAction("MonthlyDues");
-                    }
-                    if (model.PaymentOptionsName.Equals(PaymentOptionsName.Donations.ToString()))
-                    {
-                         return RedirectToAction("Donations");
-                    }
-                    
-                db.PaymentOptions.Add(paydata);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Dashboard");
-                }
-
-            var myPaymentOptions = from PaymentOptionsName p in Enum.GetValues(typeof(PaymentOptionsName))
-                                   select new { ID = p, Name = p.ToString() };
-
-            ViewBag.PaymentOptionsName = new SelectList(myPaymentOptions, "Name", "Name");
-            return View(model);
-        }
-
-        public ActionResult MonthlyDues()
-        {
-            var myOption = from PaymentStatus p in Enum.GetValues(typeof(PaymentStatus))
-                           select new { ID = p, Name = p.ToString() };
-            ViewBag.PaymentStatus = new SelectList(myOption, "Name", "Name");
-      
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> MonthlyDues(MonthlyDues model)
-        {
-            var payuser = User.Identity.GetUserId();
-            var payee = await db.ActiveMember//.Include(p => p.MemberRegistration)
-                                              .Include(p => p.MonthlyDues)
-                                              //.Include(p => p.Donations)
-                                              .SingleOrDefaultAsync(p => p.ActiveMemberId == payuser);
-
-            if (ModelState.IsValid)
-            {
-
-                db.MonthlyDues.Add(model);
-                await db.SaveChangesAsync();
-                ViewBag.Message = $"Hello {User.Identity.GetUserName()}; Your Payment was Successful.";
-                return RedirectToAction("Dashboard");
-            }
-            var myOption = from PaymentStatus p in Enum.GetValues(typeof(PaymentStatus))
-                           select new { ID = p, Name = p.ToString() };
+            var blogList = await db.BlogList.AsNoTracking().Take(3).ToListAsync();
             
-            ViewBag.PaymentStatus = new SelectList(myOption, "Name", "Name");
-            return View(model);
-        }
-        public ActionResult MemberRegistration()
-        {
-            var myOption = from PaymentStatus p in Enum.GetValues(typeof(PaymentStatus))
-                           select new { ID = p, Name = p.ToString() };
-            ViewBag.PaymentStatus = new SelectList(myOption, "Name", "Name");
+            if(blogList == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.BlogList = blogList;
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> MemberRegistration(MemberRegistration model)
+        public ActionResult BlogPost(int? id)
         {
-            var payuser = User.Identity.GetUserId();
-            var payee = await db.ActiveMember.Include(p => p.MemberRegistration)
-                                              //.Include(p => p.MonthlyDues)
-                                              //.Include(p => p.Donations)
-                                              .SingleOrDefaultAsync(p => p.ActiveMemberId == payuser);
-
-            if (ModelState.IsValid)
+            if (id == null)
             {
-
-                db.MemberRegistration.Add(model);
-                await db.SaveChangesAsync();
-                ViewBag.Message = $"Hello {User.Identity.GetUserName()}; Your Payment was Successful.";
-                return RedirectToAction("Dashboard");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var myOption = from PaymentStatus p in Enum.GetValues(typeof(PaymentStatus))
-                           select new { ID = p, Name = p.ToString() };
-            ViewBag.PaymentStatus = new SelectList(myOption, "Name", "Name");
-            return View(model);
-        }
-        public ActionResult Donations()
-        {
-            var myOption = from PaymentStatus p in Enum.GetValues(typeof(PaymentStatus))
-                           select new { ID = p, Name = p.ToString() };   
-            ViewBag.PaymentStatus = new SelectList(myOption, "Name", "Name");
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Donations(Donations model)
-        {
-            var payuser = User.Identity.GetUserId();
-            var payee = await db.ActiveMember//.Include(p => p.MemberRegistration)
-                                              //.Include(p => p.MonthlyDues)
-                                              .Include(p => p.Donations)
-                                              .SingleOrDefaultAsync(p => p.ActiveMemberId == payuser);
-
-            if (ModelState.IsValid)
+            BlogPost blogPost = db.BlogPost.Find(id);
+            if (blogPost == null)
             {
-
-                db.Donations.Add(model);
-                await db.SaveChangesAsync();
-                ViewBag.Message = $"Hello {User.Identity.GetUserName()}; Your Payment was Successful.";
-                return RedirectToAction("Dashboard");
+                return HttpNotFound();
             }
-            var myOption = from PaymentStatus p in Enum.GetValues(typeof(PaymentStatus))
-                           select new { ID = p, Name = p.ToString() };
-            ViewBag.PaymentStatus = new SelectList(myOption, "Name", "Name");
-
-            return View(model);
+            var blogCat = db.BlogCategory.ToList();
+            var blogCount = db.BlogCategory.FirstOrDefault();
+            var name = blogCount.CategoryName;
+            int catPost = db.BlogList.Count(x => x.BlogCategory.CategoryName.ToString() == name);
+            ViewBag.BlogCat = blogCat;
+            ViewBag.CountPost = catPost;
+            return View(blogPost);
         }
         // GET: ActiveMembers/Details/5
         public ActionResult Details(string id)
@@ -234,7 +128,7 @@ namespace NaccNigModels.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ProfileUpdate(ActiveMember activeMember)
+        public async Task<ActionResult> ProfileUpdate(ActiveMember activeMember, string MemberId)
         {
             var userId = User.Identity.GetUserId();
             activeMember.ActiveMemberId = userId;
@@ -363,7 +257,7 @@ namespace NaccNigModels.Controllers
             ActiveMember activeMember = db.ActiveMember.Find(id);
             db.ActiveMember.Remove(activeMember);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ActiveMemberList");
         }
 
         protected override void Dispose(bool disposing)

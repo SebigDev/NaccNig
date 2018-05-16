@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNet.Identity;
 using NaccNig.Models;
+using NaccNig.ViewModels;
+using NaccNigModels.Members;
 using NaccNigModels.PopUp;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -37,7 +40,7 @@ namespace NaccNigModels.Controllers
             return View();
         }
 
-      
+      [Authorize]
         public async Task<ActionResult> Dashboard()
         {
             if (!User.IsInRole(RoleName.Admin))
@@ -52,20 +55,21 @@ namespace NaccNigModels.Controllers
             int totalFemale = totalActiveFemale + totalPastFemale;
             int totalActive = totalActiveMale + totalActiveFemale;
             int totalPast = totalPastMale + totalPastFemale;
-            int paidMemberRegistration = await db.MemberRegistration.AsNoTracking().CountAsync(x => x.IsPaidRegistrationFee.Equals(true));
-            int paidMonthlyDues = await db.MonthlyDues.AsNoTracking().CountAsync(x=>x.IsPaidMonthlyDues.Equals(true));
             int totalMember = totalPast + totalActive;
 
             var activerMemberList = await db.ActiveMember.AsNoTracking().ToListAsync();
             var pastMemberList = await db.PastMember.AsNoTracking().ToListAsync();
 
+
+            int blogPost = await db.BlogList.AsNoTracking().CountAsync();
+
            
 
-            double val1 = totalMale * 100;
-            double val2 = totalFemale * 100;
+            double valueA = totalMale * 100;
+            double valueB= totalFemale * 100;
 
-            double malePercentage = Math.Round(val1 / totalMale, 2);
-            double femalePercentage = Math.Round(val2 / totalFemale, 2);
+            double malePercentage = Math.Round(valueA / totalMale, 2);
+            double femalePercentage = Math.Round(valueB/ totalFemale, 2);
             double totalPercentage = 100;
 
             ViewBag.TotalActiveMale = totalActiveMale;
@@ -76,15 +80,42 @@ namespace NaccNigModels.Controllers
             ViewBag.TotalPast = totalPast;
             ViewBag.MalePercentage = malePercentage;
             ViewBag.FemalePercentage = femalePercentage;
-            ViewBag.PaidMemberRegistration = paidMemberRegistration;
-            ViewBag.PaidMonthlyDues = paidMonthlyDues;
-            ViewBag.TotalMember = totalMember;
             ViewBag.TotalPercentage = totalPercentage;
             ViewBag.ActiveMemberList = activerMemberList;
             ViewBag.PastMemberList = pastMemberList;
+            ViewBag.TotalMember = totalMember;
+            ViewBag.BlogCount = blogPost;
 
             return View();
         }
+
+        public async Task<ActionResult> ActiveMemberlist()
+        {
+            var actMem = await db.ActiveMember.AsNoTracking().ToListAsync();
+            if (actMem == null)
+            {
+               return  ViewBag.Message = "No Registered Active Member(s) yet!";
+            }
+
+            ViewBag.ActMem = actMem;
+           
+            return View();
+        }
+
+        public async Task<ActionResult> PastMemberlist()
+        {
+            var pastMem = await db.PastMember.AsNoTracking().ToListAsync();
+            if(pastMem == null)
+            {
+               ViewBag.Message = "No Registered Past Member(s) yet!";
+                
+            }
+
+            ViewBag.PastMem = pastMem;
+
+            return View();
+        }
+       
 
         public ActionResult About()
         {

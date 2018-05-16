@@ -1,0 +1,53 @@
+﻿@model IEnumerable<NaccNigModels.Blog.BlogPost>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/DashboardLayout.cshtml";
+}
+}
+<div id="content">
+    <section>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+
+                    <h2>Index</h2>
+
+                    <p>
+                        @Html.ActionLink("Create New", "Create")
+                    </p>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BlogList.BlogTitle)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DetailDescription)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BlogList.BlogTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DetailDescription)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+

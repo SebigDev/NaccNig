@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -102,17 +104,17 @@ namespace NaccNig.Controllers
             if (User.IsInRole(RoleName.ActiveMember))
             { 
                 TempData["Title"] = "Success.";
-                return RedirectToAction("Dashboard", "ActiveMembers");
+                return RedirectToAction("ProfileUpdate", "ActiveMembers");
             }
             if (User.IsInRole(RoleName.PastMember))
             {
                 TempData["Title"] = "Success.";
-                return RedirectToAction("Dashboard", "PastMembers");
+                return RedirectToAction("ProfileUpdate", "PastMembers");
             }
             if (User.IsInRole(RoleName.ExecutiveMember))
             {
                 TempData["Title"] = "Success.";
-                return RedirectToAction("Dashboard","ExectiveMembers");
+                return RedirectToAction("ProfileUpdate", "ExectiveMembers");
             }
             if (User.IsInRole(RoleName.Admin))
             {
@@ -171,10 +173,11 @@ namespace NaccNig.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            var category = from MemberCategory m in Enum.GetValues(typeof(MemberCategory))
-                        select new { ID = m, Name = m.ToString() };
+          var category = from MemberCategory m in Enum.GetValues(typeof(MemberCategory))
+                      select new { ID = m, Name = m.ToString() };
 
             ViewBag.MemberCategory = new SelectList(category, "Name", "Name");
+           
             return View();
             
         }
@@ -195,31 +198,33 @@ namespace NaccNig.Controllers
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
-               if(result.Succeeded)
+                if (result.Succeeded)
                 {
-                    
+
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     await this.UserManager.AddToRoleAsync(user.Id, model.MemberCategory.ToString());
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return View("RegisterRedirection");
+                    ViewBag.Message = "Registration was successful";
+                    return View("Login");
                 }
-               
+
                 AddErrors(result);
             }
             var category = from MemberCategory m in Enum.GetValues(typeof(MemberCategory))
                            select new { ID = m, Name = m.ToString() };
 
             ViewBag.MemberCategory = new SelectList(category, "Name", "Name");
-            // If we got this far, something failed, redisplay form
+            //If we got this far, something failed, redisplay form
+
+
             return View(model);
         }
-
+       
         public ActionResult RegisterRedirection()
         {
             return View();

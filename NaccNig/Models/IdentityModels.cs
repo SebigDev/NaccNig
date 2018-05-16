@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using NaccNigModels.Members;
-using NaccNigModels.Payments;
+using NaccNigModels.Blog;
+
 
 
 namespace NaccNig.Models
@@ -37,10 +38,9 @@ namespace NaccNig.Models
         public DbSet<ActiveMember> ActiveMember { get; set; }
         public DbSet<PastMember> PastMember { get; set; }
         public DbSet<ExecutiveMember> ExecutiveMember { get; set; }
-        public DbSet<PaymentOptions> PaymentOptions { get; set; }
-        public DbSet<MemberRegistration> MemberRegistration { get; set; }
-        public DbSet<Donations> Donations { get; set; }
-        public DbSet<MonthlyDues> MonthlyDues { get; set; }
-
+        public DbSet<BlogPost> BlogPost { get; set; }
+        public DbSet<BlogList> BlogList { get; set; }
+        public DbSet<BlogCategory> BlogCategory { get; set; }
+      
     }
 }

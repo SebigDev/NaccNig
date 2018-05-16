@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaccNig;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,11 +14,17 @@ namespace NaccNigModels
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            //);
+            routes.Add(new LowercaseDashedRoute("{controller}/{action}/{id}",
+    new RouteValueDictionary(
+        new { controller = "Home", action = "Index", id = UrlParameter.Optional }),
+        new DashedRouteHandler()
+    )
+);
         }
     }
 }

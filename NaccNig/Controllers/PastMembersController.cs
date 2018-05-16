@@ -158,7 +158,7 @@ namespace NaccNig.Controllers
             PastMember pastMember = db.PastMember.Find(id);
             db.PastMember.Remove(pastMember);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("PastMemberList");
         }
 
         protected override void Dispose(bool disposing)

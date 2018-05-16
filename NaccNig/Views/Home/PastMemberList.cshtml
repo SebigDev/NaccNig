@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "PastMemberList";
+    Layout = "~/Views/Shared/DashboardLayout.cshtml";
+}
+
+!-- BEGIN CONTENT-->
+
+<div id="content">
+    <section>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-info">PAST MEMBERS</h3>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>State Of Origin</th>
+                            <th>State Served</th>
+                            <th>Phone Number</th>
+                            <th>Gender</th>
+                            <th>Age</th>
+                            <th>Action</th>
+                        </tr>
+                        @foreach (var a in ViewBag.PastMem)
+                        {
+                        <tr>
+                            <td>@a.Fullname</td>
+                            <td>@a.StateOfOrigin</td>
+                            <td>@a.StateServed</td>
+                            <td>@a.PhoneNumber</td>
+                            <td>@a.Gender</td>
+                            <td>@a.Age</td>
+                            <th><a href="@Url.Action("Delete","PastMembers", new { Id = a.PastMemberId})">Remove Member</a></th>
+                        </tr>
+                        }
+
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+

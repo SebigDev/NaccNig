@@ -1,0 +1,35 @@
+﻿@model NaccNigModels.Blog.BlogPost
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/DashboardLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BlogPost</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BlogList.BlogTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BlogList.BlogTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DetailDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DetailDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
