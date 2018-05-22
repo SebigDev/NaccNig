@@ -17,13 +17,15 @@ namespace NaccNigModels.Blog
     public abstract class Blog
     {
         public string BlogTitle { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DatePublished { get; set; }
         public string PublishedDate
         {
             get
             {
-                return DateTime.Now.ToLongDateString();
+                return DatePublished.ToLongDateString();
             }
-        }
+          }
         public string Author
         {
             get
@@ -32,6 +34,8 @@ namespace NaccNigModels.Blog
             }
            
         }
+        public string ActiveMemberId { get; set; }
+        public virtual ActiveMember ActiveMember { get; set; }
 
     }
 
@@ -52,5 +56,29 @@ namespace NaccNigModels.Blog
         public string DetailDescription { get; set; }
         public int BlogListId { get; set; }
         public virtual BlogList BlogList { get; set; }
+    }
+
+    public class BlogComment
+    {
+        [Key]
+        public int CommentId { get; set; }
+        public string ActiveMemberId { get; set; }
+        public string PastMemberId { get; set; }
+        public ActiveMember ActiveMember { get; set; }
+        public PastMember PastMember { get; set; }
+        public string Comment { get; set; }
+        public int BlogListId { get; set; }
+        public BlogList BlogList { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime CommentTime { get; set; }
+        public string GetCommentTime
+        {
+            get
+            {
+                return CommentTime.ToShortTimeString();
+            }
+        }
+
     }
 }

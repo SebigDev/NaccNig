@@ -28,7 +28,9 @@
         <footer>
             <p>&copy; @DateTime.Now.Year - NACC Nigeria</p>
         </footer>
-
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 
         <!-- BEGIN JAVASCRIPT -->
         <script src="~/Scripts/js/libs/jquery/jquery-1.11.2.js"></script>

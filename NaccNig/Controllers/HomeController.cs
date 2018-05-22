@@ -60,10 +60,8 @@ namespace NaccNigModels.Controllers
             var activerMemberList = await db.ActiveMember.AsNoTracking().ToListAsync();
             var pastMemberList = await db.PastMember.AsNoTracking().ToListAsync();
 
+            
 
-            int blogPost = await db.BlogList.AsNoTracking().CountAsync();
-
-           
 
             double valueA = totalMale * 100;
             double valueB= totalFemale * 100;
@@ -84,8 +82,7 @@ namespace NaccNigModels.Controllers
             ViewBag.ActiveMemberList = activerMemberList;
             ViewBag.PastMemberList = pastMemberList;
             ViewBag.TotalMember = totalMember;
-            ViewBag.BlogCount = blogPost;
-
+        
             return View();
         }
 

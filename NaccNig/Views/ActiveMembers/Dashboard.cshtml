@@ -1,7 +1,7 @@
 ﻿@using NaccNig.Models
 @model NaccNig.ViewModels.MemberDashboardVM
 @{
-    ViewBag.Title = $"{Model.Firstname}'s Dashboard ";
+    ViewBag.Title = Model.Firstname +" " +Model.Surname+ "\'s Dashboard";
     Layout = "~/Views/Shared/DashboardLayout.cshtml";
 }
 

@@ -1,0 +1,35 @@
+﻿@model NaccNigModels.Structures.Zone
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Zone</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ZoneName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZoneName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StateChapId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateChapId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ZId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

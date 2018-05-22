@@ -1,0 +1,35 @@
+﻿@model NaccNigModels.Structures.StateChapter
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StateChapter</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StateChapterName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateChapterName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StateChapId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

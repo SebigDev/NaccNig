@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using NaccNigModels.Members;
-using NaccNigModels.Blog;
-
+using NaccNigModels.Structures;
 
 
 namespace NaccNig.Models
@@ -38,9 +37,11 @@ namespace NaccNig.Models
         public DbSet<ActiveMember> ActiveMember { get; set; }
         public DbSet<PastMember> PastMember { get; set; }
         public DbSet<ExecutiveMember> ExecutiveMember { get; set; }
-        public DbSet<BlogPost> BlogPost { get; set; }
-        public DbSet<BlogList> BlogList { get; set; }
-        public DbSet<BlogCategory> BlogCategory { get; set; }
+        public DbSet<Province> Province { get; set; }
+        public DbSet<StateChapter> StateChapter { get; set; }
+        public DbSet<Zone> Zone { get; set; }
+
+
       
     }
 }

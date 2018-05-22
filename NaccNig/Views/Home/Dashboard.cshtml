@@ -87,6 +87,84 @@
             </div><!--end .row -->
             <div class="row">
 
+                <!-- BEGIN ALERT - REVENUE -->
+                <div class="col-md-3 col-sm-6">
+                <a href="@Url.Action("Index","Provinces")">
+                    <div class="card">
+                        <div class="card-body no-padding">
+                            <div class="alert alert-callout alert-info no-margin">
+                                <strong class="text-xl">@ViewBag.Province</strong><br />
+                                <span class="opacity-50">Total Provinces</span>
+                                <i class="fa fa-home fa-2x pull-right"></i>
+                                <div class="stick-bottom-left-right">
+                                    <div class="height-2" data-line-color="#bdc1c1"></div>
+                                </div>
+                            </div>
+                        </div><!--end .card-body -->
+                    </div>
+                    </a><!--end .card -->
+                </div><!--end .col -->
+                <!-- END ALERT - REVENUE -->
+                <!-- BEGIN ALERT - VISITS -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="@Url.Action("Index","StateChapters")">
+                        <div class="card">
+                            <div class="card-body no-padding">
+                                <div class="alert alert-callout alert-warning no-margin">
+                                    <strong class="text-xl">@ViewBag.StateChapter</strong><br />
+                                    <span class="opacity-50">Total State Chapters</span>
+                                    <i class="fa fa-home fa-2x pull-right"></i>
+                                    <div class="stick-bottom-right">
+                                        <div class="height-1 sparkline-visits" data-bar-color="#e5e6e6"></div>
+                                    </div>
+                                </div>
+                            </div><!--end .card-body -->
+                        </div>
+                        </a><!--end .card -->
+                </div><!--end .col -->
+                <!-- END ALERT - VISITS -->
+                <!-- BEGIN ALERT - BOUNCE RATES -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="@Url.Action("Index","ZonalChapters")">
+                        <div class="card">
+                            <div class="card-body no-padding">
+                                <div class="alert alert-callout alert-danger no-margin">
+                                    <strong class="pull-right text-danger text-lg"> <i class="md md-swap-vert"></i></strong>
+                                    <strong class="text-xl">@ViewBag.ZonalChapters</strong><br />
+                                    <span class="opacity-50">Total Zonal Chapters</span>
+                                    <i class="fa fa-home fa-2x pull-right"></i>
+                                    <div class="stick-bottom-left-right">
+
+                                    </div>
+                                </div>
+                            </div><!--end .card-body -->
+                        </div>
+                        </a><!--end .card -->
+                </div><!--end .col -->
+                <!-- END ALERT - BOUNCE RATES -->
+                <!-- BEGIN ALERT - TIME ON SITE -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card">
+                        <div class="card-body no-padding">
+                            <div class="alert alert-callout alert-danger no-margin">
+                                <strong class="pull-right text-danger text-lg"> <i class="md md-swap-vert"></i></strong>
+                                <strong class="text-xl">@ViewBag.TotalPast</strong><br />
+                                <span class="opacity-50">Total Past Members</span>
+                                <i class="fa fa-male fa-2x pull-right"></i>
+                                <i class="fa fa-plus fa-1x pull-right"></i>
+                                <i class="fa fa-female fa-2x pull-right"></i>
+                                <div class="stick-bottom-left-right">
+
+                                </div>
+                            </div>
+                        </div><!--end .card-body -->
+                    </div><!--end .card -->
+                </div><!--end .col -->
+                <!-- END ALERT - TIME ON SITE -->
+
+            </div><!--end .row -->
+            <div class="row">
+
                 <!-- BEGIN SITE ACTIVITY -->
                 <div class="col-md-9">
                     <div class="card ">
@@ -296,23 +374,23 @@
                             </div>
                         </div><!--end .card-head -->
                         <div class="card-body no-padding height-9 scroll">
-                          <ul class="list divider-full-bleed">
+                            <ul class="list divider-full-bleed">
                                 @foreach (var reg in ViewBag.ActiveMemberList)
-    {
+                        {
                             <li class="tile">
                                 <div class="tile-content">
                                     <div class="tile-icon">
                                         <img src="~/images/avatar9.jpg" />
                                     </div>
                                     <div class="tile-text">
-                                   <a href="@Url.Action("MyProfile","ActiveMembers", new { Id = reg.ActiveMemberId})"> @reg.Firstname  @reg.Surname</a>
+                                        <a href="@Url.Action("MyProfile","ActiveMembers", new { Id = reg.ActiveMemberId})"> @reg.Firstname  @reg.Surname</a>
                                     </div>
                                 </div>
                                 <a class="btn btn-flat ink-reaction">
                                     <i class="md md-block text-default-light"></i>
                                 </a>
                             </li>
-}
+                }
 
 
                             </ul>

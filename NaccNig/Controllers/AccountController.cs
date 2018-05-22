@@ -99,22 +99,23 @@ namespace NaccNig.Controllers
                     return View(model);
             }
         }
+
         public ActionResult CustomDashboard(string returnUrl)
         {
             if (User.IsInRole(RoleName.ActiveMember))
             { 
                 TempData["Title"] = "Success.";
-                return RedirectToAction("ProfileUpdate", "ActiveMembers");
+                return RedirectToAction("LoginCheck", "Account");
             }
             if (User.IsInRole(RoleName.PastMember))
             {
                 TempData["Title"] = "Success.";
-                return RedirectToAction("ProfileUpdate", "PastMembers");
+                return RedirectToAction("LoginCheck", "Account");
             }
             if (User.IsInRole(RoleName.ExecutiveMember))
             {
                 TempData["Title"] = "Success.";
-                return RedirectToAction("ProfileUpdate", "ExectiveMembers");
+                return RedirectToAction("LoginCheck", "Account");
             }
             if (User.IsInRole(RoleName.Admin))
             {
@@ -174,7 +175,7 @@ namespace NaccNig.Controllers
         public ActionResult Register()
         {
           var category = from MemberCategory m in Enum.GetValues(typeof(MemberCategory))
-                      select new { ID = m, Name = m.ToString() };
+                      select new { ID = m, Name = m.ToString()};
 
             ViewBag.MemberCategory = new SelectList(category, "Name", "Name");
            
@@ -195,6 +196,7 @@ namespace NaccNig.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email
+        
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
@@ -209,14 +211,13 @@ namespace NaccNig.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    ViewBag.Message = "Registration was successful";
-                    return View("Login");
+                    return RedirectToAction("RegisterRedirection","Account");
                 }
 
                 AddErrors(result);
             }
             var category = from MemberCategory m in Enum.GetValues(typeof(MemberCategory))
-                           select new { ID = m, Name = m.ToString() };
+                           select new { ID = m, Name = m.ToString()};
 
             ViewBag.MemberCategory = new SelectList(category, "Name", "Name");
             //If we got this far, something failed, redisplay form
@@ -224,9 +225,42 @@ namespace NaccNig.Controllers
 
             return View(model);
         }
-       
+       [AllowAnonymous]
         public ActionResult RegisterRedirection()
         {
+            return View();
+        }
+
+        public ActionResult LoginCheck()
+        {
+            if (User.IsInRole(RoleName.ActiveMember))
+            {
+                var userId = User.Identity.GetUserId();
+                var activeLogin = db.ActiveMember.AsNoTracking().FirstOrDefault(x=>x.ActiveMemberId==userId);
+                
+                if(activeLogin == null)
+                {
+                    return RedirectToAction("ProfileUpdate","ActiveMembers");
+                }
+                else
+                {
+                    return RedirectToAction("Dashboard", "ActiveMembers");
+                }
+            }
+            if (User.IsInRole(RoleName.PastMember))
+            {
+                var userId = User.Identity.GetUserId();
+                var pastLogin = db.PastMember.AsNoTracking().FirstOrDefault(x => x.PastMemberId == userId);
+                var firstname = pastLogin.Firstname;
+                if (String.IsNullOrEmpty(firstname))
+                {
+                    return RedirectToAction("ProfileUpdate", "PastMembers");
+                }
+                else
+                {
+                    return RedirectToAction("Dashboard", "PastMembers");
+                }
+            }
             return View();
         }
 

@@ -6,14 +6,7 @@ using System.Reflection;
 namespace NaccNigModels.PopUp
 {
 
-    public enum PaymentOptionsName
-    {
-        [Description("Member Registration")]
-        MemberRegistration = 1,
-        [Description("Monthly Dues")]
-        MonthlyDues,
-        Donations
-    }
+   
     public enum Gender
     {
         Male, Female, Others
@@ -34,18 +27,13 @@ namespace NaccNigModels.PopUp
 
     public enum MemberCategory
     {
-        [Description("Active Member")]
+        [Description("Serving Corps Member")]
         ActiveMember = 1,
-        [Description("Past Member")]
+        [Description("Passed Out Of Service")]
         PastMember,
-        [Description("Executive Member")]
+        [Description("Patron/Patroness")]
         ExecutiveMember
 
     }
-    public enum PaymentStatus
-    {
-        [Description("Not Paid")]
-        NotPaid,
-       Paid
-    }
+  
 }

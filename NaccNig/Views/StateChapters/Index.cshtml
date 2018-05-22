@@ -1,0 +1,40 @@
+﻿@model IEnumerable<NaccNigModels.Structures.StateChapter>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StateChapterName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StateChapterName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.StateChapId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.StateChapId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.StateChapId })
+        </td>
+    </tr>
+}
+
+</table>

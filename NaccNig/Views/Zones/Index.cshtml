@@ -1,0 +1,40 @@
+﻿@model IEnumerable<NaccNigModels.Structures.Zone>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ZoneName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StateChapId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ZoneName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StateChapId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ZId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ZId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ZId })
+        </td>
+    </tr>
+}
+
+</table>

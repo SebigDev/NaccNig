@@ -2,7 +2,6 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.8.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.8.0\build\Microsoft.Net.Compilers.props')" />
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -81,9 +80,6 @@
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.3\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
@@ -130,8 +126,8 @@
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
@@ -191,20 +187,22 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActiveMembersController.cs" />
-    <Compile Include="Controllers\BlogListsController.cs" />
-    <Compile Include="Controllers\BlogPostsController.cs" />
-    <Compile Include="Controllers\ExecutiveMembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PastMembersController.cs" />
+    <Compile Include="Controllers\ProvincesController.cs" />
+    <Compile Include="Controllers\StateChaptersController.cs" />
+    <Compile Include="Controllers\ZonesController.cs" />
     <Compile Include="DashedRouteHandler.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="GetEnumDescription.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LowercaseDashedRoute.cs" />
-    <Compile Include="Migrations\201805151823435_InitialMigrateModels.cs" />
-    <Compile Include="Migrations\201805151823435_InitialMigrateModels.Designer.cs">
-      <DependentUpon>201805151823435_InitialMigrateModels.cs</DependentUpon>
+    <Compile Include="Migrations\201805220322099_InitialModelMigration.cs" />
+    <Compile Include="Migrations\201805220322099_InitialModelMigration.Designer.cs">
+      <DependentUpon>201805220322099_InitialModelMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -214,10 +212,10 @@
     <Compile Include="MVCRouteHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\BlogPostVM.cs" />
     <Compile Include="ViewModels\MemberDashboardVM.cs" />
     <Compile Include="ViewModels\CustomDashboardVM.cs" />
-    <Compile Include="ViewModels\PaymentListVM.cs" />
+    <Compile Include="ViewModels\MyProfileVM.cs" />
+    <Compile Include="ViewModels\ProvinceStateZoneVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\assets\css\fonts\fontawesome-webfont.svg" />
@@ -288,24 +286,6 @@
     <Content Include="Content\assets\css\theme-default\materialadmin.css" />
     <Content Include="Content\assets\css\theme-default\materialadmin_demo.css" />
     <Content Include="Content\assets\css\theme-default\materialadmin_print.css" />
-    <Content Include="Content\assets\js\core\demo\Demo.js" />
-    <Content Include="Content\assets\js\core\demo\DemoCalendar.js" />
-    <Content Include="Content\assets\js\core\demo\DemoCharts.js" />
-    <Content Include="Content\assets\js\core\demo\DemoDashboard.js" />
-    <Content Include="Content\assets\js\core\demo\DemoDocs.js" />
-    <Content Include="Content\assets\js\core\demo\DemoFormComponents.js" />
-    <Content Include="Content\assets\js\core\demo\DemoFormEditors.js" />
-    <Content Include="Content\assets\js\core\demo\DemoFormLayouts.js" />
-    <Content Include="Content\assets\js\core\demo\DemoFormWizard.js" />
-    <Content Include="Content\assets\js\core\demo\DemoLayouts.js" />
-    <Content Include="Content\assets\js\core\demo\DemoPageContacts.js" />
-    <Content Include="Content\assets\js\core\demo\DemoPageMaps.js" />
-    <Content Include="Content\assets\js\core\demo\DemoPageSearch.js" />
-    <Content Include="Content\assets\js\core\demo\DemoPageTimeline.js" />
-    <Content Include="Content\assets\js\core\demo\DemoTableDynamic.js" />
-    <Content Include="Content\assets\js\core\demo\DemoUILists.js" />
-    <Content Include="Content\assets\js\core\demo\DemoUIMessages.js" />
-    <Content Include="Content\assets\js\core\demo\DemoUISkycons.js" />
     <Content Include="Content\assets\js\core\source\App.js" />
     <Content Include="Content\assets\js\core\source\App.min.js" />
     <Content Include="Content\assets\js\core\source\AppCard.js" />
@@ -1369,6 +1349,43 @@
     <Content Include="Content\Default\font-awesome.min.css" />
     <Content Include="Content\Default\jquery-ui.css" />
     <Content Include="Content\Default\style.css" />
+    <Content Include="Content\landingpage\css\bootstrap.css" />
+    <Content Include="Content\landingpage\css\font-awesome.min.css" />
+    <Content Include="Content\landingpage\css\lsb.css" />
+    <Content Include="Content\landingpage\css\popuo-box.css" />
+    <Content Include="Content\landingpage\css\style.css" />
+    <Content Include="Content\landingpage\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\landingpage\images\arrowup.png" />
+    <Content Include="Content\landingpage\images\b1.jpg" />
+    <Content Include="Content\landingpage\images\b2.jpg" />
+    <Content Include="Content\landingpage\images\b3.jpg" />
+    <Content Include="Content\landingpage\images\b4.jpg" />
+    <Content Include="Content\landingpage\images\close.png" />
+    <Content Include="Content\landingpage\images\g1.jpg" />
+    <Content Include="Content\landingpage\images\g2.jpg" />
+    <Content Include="Content\landingpage\images\img1.jpg" />
+    <Content Include="Content\landingpage\images\img2.jpg" />
+    <Content Include="Content\landingpage\images\img3.jpg" />
+    <Content Include="Content\landingpage\images\img4.jpg" />
+    <Content Include="Content\landingpage\images\img5.jpg" />
+    <Content Include="Content\landingpage\images\img6.jpg" />
+    <Content Include="Content\landingpage\images\left-arrow.png" />
+    <Content Include="Content\landingpage\images\right-arrow.png" />
+    <Content Include="Content\landingpage\images\t1.jpg" />
+    <Content Include="Content\landingpage\images\t2.jpg" />
+    <Content Include="Content\landingpage\images\t3.jpg" />
+    <Content Include="Content\landingpage\images\t4.jpg" />
+    <Content Include="Content\landingpage\images\video.jpg" />
+    <Content Include="Content\landingpage\js\bootstrap.min.js" />
+    <Content Include="Content\landingpage\js\easing.js" />
+    <Content Include="Content\landingpage\js\jquery-2.2.3.min.js" />
+    <Content Include="Content\landingpage\js\jquery.countup.js" />
+    <Content Include="Content\landingpage\js\jquery.magnific-popup.js" />
+    <Content Include="Content\landingpage\js\jquery.waypoints.min.js" />
+    <Content Include="Content\landingpage\js\lsb.min.js" />
+    <Content Include="Content\landingpage\js\modernizr-2.6.2.min.js" />
+    <Content Include="Content\landingpage\js\move-top.js" />
+    <Content Include="Content\landingpage\js\responsiveslides.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -1671,6 +1688,11 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Content\landingpage\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\landingpage\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\landingpage\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\landingpage\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\landingpage\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -2761,7 +2783,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -2784,7 +2808,6 @@
     <Content Include="Views\ActiveMembers\Delete.cshtml" />
     <Content Include="Views\ActiveMembers\Details.cshtml" />
     <Content Include="Views\ActiveMembers\MyProfile.cshtml" />
-    <Content Include="Views\ActiveMembers\Payments.cshtml" />
     <Content Include="Views\ActiveMembers\ProfileUpdate.cshtml" />
     <Content Include="Views\ExecutiveMembers\Create.cshtml" />
     <Content Include="Views\ExecutiveMembers\Delete.cshtml" />
@@ -2812,9 +2835,6 @@
     <Content Include="Views\SupportingMembers\Index.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\ActiveMembers\SelectPayment.cshtml" />
-    <Content Include="Views\ActiveMembers\MemberRegistration.cshtml" />
-    <Content Include="Views\ActiveMembers\MonthlyDues.cshtml" />
     <Content Include="Views\Shared\Default.cshtml" />
     <Content Include="Views\PastMembers\Create.cshtml" />
     <Content Include="Views\PastMembers\Delete.cshtml" />
@@ -2886,21 +2906,8 @@
     <Content Include="Views\PastMembers\ProfileUpdate.cshtml" />
     <Content Include="Views\Account\RegisterRedirection.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\LandingPage.cshtml" />
     <Content Include="Views\Home\ActiveMemberList.cshtml" />
     <Content Include="Views\Home\PastMemberList.cshtml" />
-    <Content Include="Views\BlogPosts\Delete.cshtml" />
-    <Content Include="Views\BlogPosts\Details.cshtml" />
-    <Content Include="Views\BlogPosts\Edit.cshtml" />
-    <Content Include="Views\BlogPosts\Index.cshtml" />
-    <Content Include="Views\ActiveMembers\BlogLists.cshtml" />
-    <Content Include="Views\ActiveMembers\BlogPost.cshtml" />
-    <Content Include="Views\BlogPosts\Create.cshtml" />
-    <Content Include="Views\BlogLists\Create.cshtml" />
-    <Content Include="Views\BlogLists\Delete.cshtml" />
-    <Content Include="Views\BlogLists\Details.cshtml" />
-    <Content Include="Views\BlogLists\Edit.cshtml" />
-    <Content Include="Views\BlogLists\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -2910,10 +2917,34 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\ActiveMembers\Edit.cshtml" />
+    <Content Include="Views\ActiveMembers\Create.cshtml" />
+    <Content Include="Views\ActiveMembers\Index.cshtml" />
+    <Content Include="Views\ActiveMembers\Update.cshtml" />
+    <Content Include="Views\Shared\LandingPage.cshtml" />
+    <Content Include="Views\Shared\loginView.cshtml" />
+    <Content Include="Views\Account\ActiveRedirect.cshtml" />
+    <Content Include="Views\Account\PastRedirect.cshtml" />
+    <Content Include="Views\Provinces\Create.cshtml" />
+    <Content Include="Views\Provinces\Delete.cshtml" />
+    <Content Include="Views\Provinces\Details.cshtml" />
+    <Content Include="Views\Provinces\Edit.cshtml" />
+    <Content Include="Views\Provinces\Index.cshtml" />
+    <Content Include="Views\StateChapters\Create.cshtml" />
+    <Content Include="Views\StateChapters\Delete.cshtml" />
+    <Content Include="Views\StateChapters\Details.cshtml" />
+    <Content Include="Views\StateChapters\Edit.cshtml" />
+    <Content Include="Views\StateChapters\Index.cshtml" />
+    <Content Include="Views\Zones\Create.cshtml" />
+    <Content Include="Views\Zones\Delete.cshtml" />
+    <Content Include="Views\Zones\Details.cshtml" />
+    <Content Include="Views\Zones\Edit.cshtml" />
+    <Content Include="Views\Zones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\assets\js\core\cache\" />
+    <Folder Include="PhotoUpload\ActiveMembers\" />
     <Folder Include="Scripts\js\core\cache\" />
   </ItemGroup>
   <ItemGroup>
@@ -2928,15 +2959,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805151823435_InitialMigrateModels.resx">
-      <DependentUpon>201805151823435_InitialMigrateModels.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805220322099_InitialModelMigration.resx">
+      <DependentUpon>201805220322099_InitialModelMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -2971,7 +3002,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.8.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.8.0\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

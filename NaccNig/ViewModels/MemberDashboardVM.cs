@@ -8,7 +8,7 @@ namespace NaccNig.ViewModels
 {
     public class MemberDashboardVM
     {
-        public string MemberId { get; set; }
+        public string ActiveMemberId { get; set; }
         [Required]
         [Display(Name = "First Name")]
         public string Firstname { get; set; }
@@ -36,7 +36,7 @@ namespace NaccNig.ViewModels
 
         public int Age { get; set; }
 
-        public byte[] Passport { get; set; }
+        public string Photo { get; set; }
         [Required]
         [Display(Name = "Phone Number")]
         [DataType(DataType.PhoneNumber)]

@@ -5,24 +5,24 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using NaccNigModels.Members;
 using NaccNig.Models;
 using NaccNig.ViewModels;
 using NaccNigModels.PopUp;
+using System.IO;
+using NaccNigModels.Structures;
 using System.Collections.Generic;
-using NaccNigModels.Blog;
 
 namespace NaccNigModels.Controllers
 {
-    [Authorize(Roles =RoleName.Admin +"," + RoleName.ActiveMember )]
-    
+    [Authorize(Roles = RoleName.Admin + "," + RoleName.ActiveMember)]
+
     public class ActiveMembersController : Controller
     {
         private NaccNigDbContext db;
-
-        public IEnumerable Amount { get; private set; }
 
         public ActiveMembersController()
         {
@@ -37,6 +37,7 @@ namespace NaccNigModels.Controllers
         }
         public ActionResult Dashboard(MemberDashboardVM model)
         {
+
             var userId = User.Identity.GetUserId();
             var activeId = userId;
             var activeUser = db.ActiveMember.AsNoTracking()
@@ -53,45 +54,12 @@ namespace NaccNigModels.Controllers
                 model.StateOfDeployment = activeUser.StateOfDeployment;
                 model.StateOfOrigin = activeUser.StateOfOrigin;
                 model.Gender = activeUser.Gender;
-                model.MemberId = activeUser.ActiveMemberId;
+                model.ActiveMemberId = activeUser.ActiveMemberId;
                 model.Fullname = activeUser.Fullname;
                 model.Age = activeUser.Age;
+                model.Photo = activeUser.Photo;
             }
-            int blog = db.BlogList.Count();
-            ViewBag.Blog = blog;
             return View(model);
-        }
-
-        public async Task<ActionResult> BlogLists()
-        {
-            var blogList = await db.BlogList.AsNoTracking().Take(3).ToListAsync();
-            
-            if(blogList == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.BlogList = blogList;
-            return View();
-        }
-
-        public ActionResult BlogPost(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            BlogPost blogPost = db.BlogPost.Find(id);
-            if (blogPost == null)
-            {
-                return HttpNotFound();
-            }
-            var blogCat = db.BlogCategory.ToList();
-            var blogCount = db.BlogCategory.FirstOrDefault();
-            var name = blogCount.CategoryName;
-            int catPost = db.BlogList.Count(x => x.BlogCategory.CategoryName.ToString() == name);
-            ViewBag.BlogCat = blogCat;
-            ViewBag.CountPost = catPost;
-            return View(blogPost);
         }
         // GET: ActiveMembers/Details/5
         public ActionResult Details(string id)
@@ -108,9 +76,11 @@ namespace NaccNigModels.Controllers
             return View(activeMember);
         }
 
-        // GET: ActiveMembers/Create
+        // GET: ActiveMembers/Edit/5
+        [AllowAnonymous]
         public ActionResult ProfileUpdate()
         {
+            
             var myGender = from Gender s in Enum.GetValues(typeof(Gender))
                            select new { ID = s, Name = s.ToString() };
             var myState = from State s in Enum.GetValues(typeof(State))
@@ -120,23 +90,32 @@ namespace NaccNigModels.Controllers
             ViewBag.Gender = new SelectList(myGender, "Name", "Name");
             ViewBag.StateOfOrigin = new SelectList(myState, "Name", "Name");
             ViewBag.StateOfDeployment = new SelectList(depState, "Name", "Name");
+            ViewBag.MyList = new SelectList(db.Province, "ProId", "ProvinceName");
+
             return View();
         }
 
-        // POST: ActiveMembers/Create
+        // POST: ActiveMembers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ProfileUpdate(ActiveMember activeMember, string MemberId)
+        public ActionResult ProfileUpdate(ActiveMember activeMember)
         {
             var userId = User.Identity.GetUserId();
             activeMember.ActiveMemberId = userId;
+
+
             if (ModelState.IsValid)
             {
+                var fileName = Path.GetFileNameWithoutExtension(activeMember.ImageFile.FileName);
+                var extension = Path.GetExtension(activeMember.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                activeMember.Photo = "~/PhotoUpload/ActiveMembers/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/PhotoUpload/ActiveMembers/"), fileName);
+                activeMember.ImageFile.SaveAs(fileName);
                 db.ActiveMember.Add(activeMember);
-                await db.SaveChangesAsync();
-                ViewBag.Message = $"Hello {User.Identity.GetUserName()}; Your Profile Updated Successfully.";
+                db.SaveChanges();
                 return RedirectToAction("Dashboard");
             }
             var myGender = from Gender s in Enum.GetValues(typeof(Gender))
@@ -148,16 +127,12 @@ namespace NaccNigModels.Controllers
             ViewBag.Gender = new SelectList(myGender, "Name", "Name");
             ViewBag.StateOfOrigin = new SelectList(myState, "Name", "Name");
             ViewBag.StateOfDeployment = new SelectList(depState, "Name", "Name");
-
+            ViewBag.MyList = new SelectList(db.Province, "ProId", "ProvinceName");
             return View(activeMember);
         }
         [Authorize]
-       
-
-        public async Task<ActionResult> MyProfile()
+        public async Task<ActionResult> MyProfile(MyProfileVM model)
         {
-            MemberDashboardVM model = new MemberDashboardVM();
-
             var userId = User.Identity.GetUserId();
             var activeId = userId;
             var activeUser = await db.ActiveMember.AsNoTracking()
@@ -174,18 +149,25 @@ namespace NaccNigModels.Controllers
                 model.StateOfDeployment = activeUser.StateOfDeployment;
                 model.StateOfOrigin = activeUser.StateOfOrigin;
                 model.Gender = activeUser.Gender;
-                model.MemberId = activeUser.ActiveMemberId;
+                model.ActiveMemberId = activeUser.ActiveMemberId;
                 model.Fullname = activeUser.Fullname;
                 model.Age = activeUser.Age;
-                model.MemberId = activeUser.ActiveMemberId;
+                model.ActiveMemberId = activeUser.ActiveMemberId;
+                model.Photo = activeUser.Photo;
+                model.Province = activeUser.ProvinceId;
+                model.StateChapter = activeUser.StateChapterId;
+                model.Zone = activeUser.ZoneId;
 
             }
             return View(model);
         }
 
         // GET: ActiveMembers/Edit/5
+        
+        [HttpGet]
         public ActionResult Update(string id)
         {
+                    
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -195,6 +177,9 @@ namespace NaccNigModels.Controllers
             {
                 return HttpNotFound();
             }
+
+
+
             var myGender = from Gender s in Enum.GetValues(typeof(Gender))
                            select new { ID = s, Name = s.ToString() };
             var myState = from State s in Enum.GetValues(typeof(State))
@@ -204,6 +189,7 @@ namespace NaccNigModels.Controllers
             ViewBag.Gender = new SelectList(myGender, "Name", "Name");
             ViewBag.StateOfOrigin = new SelectList(myState, "Name", "Name");
             ViewBag.StateOfDeployment = new SelectList(depState, "Name", "Name");
+            ViewBag.MyList = new SelectList(db.Province, "ProId", "ProvinceName");
             return View(activeMember);
         }
 
@@ -212,14 +198,27 @@ namespace NaccNigModels.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(ActiveMember activeMember)
+        public async Task<ActionResult> Update(ActiveMember activeMember)
         {
+            var userId = User.Identity.GetUserId();
+            activeMember.ActiveMemberId = userId;
+
+     
+
             if (ModelState.IsValid)
             {
+                var fileName = Path.GetFileNameWithoutExtension(activeMember.ImageFile.FileName);
+                var extension = Path.GetExtension(activeMember.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                activeMember.Photo = "~/PhotoUpload/ActiveMembers/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/PhotoUpload/ActiveMembers/"), fileName);
+                activeMember.ImageFile.SaveAs(fileName);
                 db.Entry(activeMember).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("MyProfile");
             }
+
+           
 
             var myGender = from Gender s in Enum.GetValues(typeof(Gender))
                            select new { ID = s, Name = s.ToString() };
@@ -230,7 +229,30 @@ namespace NaccNigModels.Controllers
             ViewBag.Gender = new SelectList(myGender, "Name", "Name");
             ViewBag.StateOfOrigin = new SelectList(myState, "Name", "Name");
             ViewBag.StateOfDeployment = new SelectList(depState, "Name", "Name");
+            ViewBag.MyList = new SelectList(db.Province, "ProId", "ProvinceName");
             return View(activeMember);
+        }
+
+
+        public ActionResult GetProvinceList()
+        {
+            List<Province> ProvinceList = db.Province.ToList();
+            ViewBag.MyList = new SelectList(ProvinceList, "ProvinceId", "Province");
+            return View();
+        }
+
+        public JsonResult GetStateChapterList(int? ProId)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<StateChapter> StateChapterList = db.StateChapter.Where(x => x.ProId == ProId).ToList();
+            return Json(StateChapterList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetZoneList(int? StateChapId)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<Zone> ZoneList = db.Zone.Where(x => x.StateChapId == StateChapId).ToList();
+            return Json(ZoneList, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = RoleName.Admin)]

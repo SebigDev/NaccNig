@@ -13,7 +13,22 @@ namespace NaccNigModels
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+               "GetZoneList",
+               "ActiveMembers/GetZone/List/{StateChapId}",
+               new {controller ="ActiveMembers", action= "GetZone", StateChapId = 0}
+           );
 
+            routes.MapRoute(
+               "GetStateChapterList",
+               "ActiveMembers/GetStateChapter/List/{ProId}",
+               new { controller = "ActiveMembers", action = "GetStateChapter", ProId = 0 }
+           );
+            routes.MapRoute(
+               "GetProvinceList",
+               "ActiveMembers/GetProvince",
+               new { controller = "ActiveMembers", action = "GetProvince" }
+           );
             //routes.MapRoute(
             //    name: "Default",
             //    url: "{controller}/{action}/{id}",
