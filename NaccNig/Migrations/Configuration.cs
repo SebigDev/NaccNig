@@ -1,4 +1,4 @@
-namespace NaccNigModels.Migrations
+namespace NaccNig.Migrations
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;

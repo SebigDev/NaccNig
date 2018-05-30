@@ -1,0 +1,43 @@
+﻿@model NaccNigModels.Payment.PaymentSetting
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/DashboardLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PaymentSetting</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ActiveMember.StateOfDeployment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActiveMember.StateOfDeployment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentCategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentCategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AmountId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AmountId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PaymentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

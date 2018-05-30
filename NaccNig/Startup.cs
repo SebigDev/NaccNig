@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(NaccNigModels.Startup))]
-namespace NaccNigModels
+[assembly: OwinStartupAttribute(typeof(NaccNig.Startup))]
+namespace NaccNig
 {
     public partial class Startup
     {

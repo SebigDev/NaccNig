@@ -5,7 +5,7 @@
 }
         <div class="section-body">
             <div class="row">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-5 col-md-offset-4">
                     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
@@ -22,14 +22,14 @@
 
                                                     <div class="w3_agileits_main_grid w3l_main_grid">
                                                         <div class="agileits_grid">
-                                                            <h4 class="text-success"><i>E-MAIL ADDRESS </i></h4>
+                                                            <h4 class="text-success"><i>E-mail Address </i></h4>
                                                             <div class="name">
                                                                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                                                             </div>
                                                             <div class="clear"></div>
                                                         </div>
                                                         <div class="agileits_grid">
-                                                            <h4 class="text-success"><i>PASSWORD</i></h4>
+                                                            <h4 class="text-success"><i>Password</i></h4>
                                                             <div class="password">
                                                                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                                                             </div>
@@ -37,14 +37,14 @@
                                                         </div>
 
                                                         <div class="agileits_grid">
-                                                            <h4 class="text-success"><i>COMFIRM PASSWORD</i></h4>
+                                                            <h4 class="text-success"><i>Confirm Password</i></h4>
                                                             <div class="password">
                                                                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                                                             </div>
                                                             <div class="clear"></div>
                                                         </div>
                                                         <div class="agileits_grid">
-                                                            <h4 class="text-success"><i>MEMBERSHIP TYPE</i></h4>
+                                                            <h4 class="text-success"><i>Membership Category</i></h4>
                                                             <div class="password">
                                                                 @Html.DropDownListFor(m=>m.MemberCategory, null, "-- Select Member Type --", new { @class = "form-control" })
                                                             </div>
@@ -52,7 +52,7 @@
                                                         </div>
                                                         <br />
                                                         <div class="agileits_grid">
-                                                            <button class="btn btn-success">SUBMIT YOUR DETAIL</button>
+                                                            <button class="btn btn-primary">Register</button>
                                                             <p class="text-warning text-right">@Html.ActionLink("Already Have Account?", "Login")</p>
                                                         </div>
                                                     </div>

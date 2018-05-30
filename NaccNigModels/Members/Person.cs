@@ -1,6 +1,5 @@
 ﻿using NaccNigModels.Structures;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web;
@@ -30,9 +29,7 @@ namespace NaccNigModels.Members
         [Display(Name = "State Of Origin")]
         public string StateOfOrigin { get; set; }
         [Display(Name ="Current Province")]
-        public int ProvinceId { get; set; }
-        public virtual Province Province { get; set; }
-        [Display(Name = "State Chapter")]
+       
         public int StateChapterId { get; set; }
         public virtual StateChapter StateChapter { get; set; }
         [Display(Name = "Zone")]
@@ -61,6 +58,12 @@ namespace NaccNigModels.Members
 
         [Display(Name = "Upload A Photo")]
         public string Photo { get; set; }
+       
+        public bool IsExco { get; set; }
+
+        public string Position { get; set; }
+
+        public string DateServed { get; set; }
 
         [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }

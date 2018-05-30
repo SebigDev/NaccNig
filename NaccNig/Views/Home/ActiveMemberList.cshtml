@@ -35,7 +35,11 @@
                             <td>@a.PhoneNumber</td>
                             <td>@a.Gender</td>
                             <td>@a.Age</td>
-                            <th><a href="@Url.Action("Delete","ActiveMembers", new { Id = a.ActiveMemberId})">Remove Member</a></th>
+                            <th>
+                                <a href="@Url.Action("Delete","ActiveMembers", new { Id = a.ActiveMemberId})">Remove Member</a>
+                            |  <a href="@Url.Action("Migrate","ActiveMembers", new { Id = a.ActiveMemberId})">Migrate Member</a>
+                            
+                            </th>
                         </tr>
                         }
 

@@ -1,20 +1,14 @@
-﻿using Microsoft.AspNet.Identity;
-using NaccNig.Models;
-using NaccNig.ViewModels;
-using NaccNigModels.Members;
-using NaccNigModels.PopUp;
+﻿using NaccNig.Models;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
-namespace NaccNigModels.Controllers
+namespace NaccNig.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
+
     {
         private NaccNigDbContext db;
 
@@ -31,16 +25,14 @@ namespace NaccNigModels.Controllers
             }
             base.Dispose(disposing);
         }
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult IndexPage()
-        {
-            return View();
-        }
+       
 
-      [Authorize]
+      [Authorize(Roles =  RoleName.Admin)]
         public async Task<ActionResult> Dashboard()
         {
             if (!User.IsInRole(RoleName.Admin))
@@ -56,6 +48,7 @@ namespace NaccNigModels.Controllers
             int totalActive = totalActiveMale + totalActiveFemale;
             int totalPast = totalPastMale + totalPastFemale;
             int totalMember = totalPast + totalActive;
+            int blog = await db.Articles.AsNoTracking().CountAsync();
 
             var activerMemberList = await db.ActiveMember.AsNoTracking().ToListAsync();
             var pastMemberList = await db.PastMember.AsNoTracking().ToListAsync();
@@ -82,10 +75,11 @@ namespace NaccNigModels.Controllers
             ViewBag.ActiveMemberList = activerMemberList;
             ViewBag.PastMemberList = pastMemberList;
             ViewBag.TotalMember = totalMember;
+            ViewBag.Blog = blog;
         
             return View();
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         public async Task<ActionResult> ActiveMemberlist()
         {
             var actMem = await db.ActiveMember.AsNoTracking().ToListAsync();
@@ -98,7 +92,7 @@ namespace NaccNigModels.Controllers
            
             return View();
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         public async Task<ActionResult> PastMemberlist()
         {
             var pastMem = await db.PastMember.AsNoTracking().ToListAsync();
@@ -113,7 +107,7 @@ namespace NaccNigModels.Controllers
             return View();
         }
        
-
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -121,6 +115,7 @@ namespace NaccNigModels.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

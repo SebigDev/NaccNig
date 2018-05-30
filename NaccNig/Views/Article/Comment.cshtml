@@ -1,0 +1,46 @@
+﻿@using NaccNig.Models
+@model NaccNig.Models.Blog.Article
+
+
+<div class="form-horizontal">
+    <h4>Comments</h4>
+    <hr />
+    @using (Html.BeginForm("Comments","Article", new { id= Model.CommentId}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comments.CommentDetail, "", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Comments.CommentDetail, htmlAttributes: new { @class = "form-control", @rows = "7" })
+                @Html.ValidationMessageFor(model => model.Comments.CommentDetail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="PostComment" value="Post Comment" class="btn btn-primary" style="margin-left:50%" />
+            </div>
+        </div>
+    }
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+            function PostComment(data) {
+            return $.ajax({
+                type: "POST",
+                url: "@Url.Action("Comments", "Article", new { id= Model.Comments.Id})",
+                    data: data,
+                    dataType: 'html',
+                    contentType: 'application/html;charset=utf-8'
+            });
+            }
+            $("#PostComment").click(function () {
+                alert("Hello");
+            });
+        });
+
+    </script>
+}

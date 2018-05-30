@@ -111,6 +111,10 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Paystack.Net.Contstants, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Paystack.Net.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Paystack.Net.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Paystack.Net.SDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -187,11 +191,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActiveMembersController.cs" />
+    <Compile Include="Controllers\Admin\CategoryController.cs" />
+    <Compile Include="Controllers\Admin\UserController.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PastMembersController.cs" />
-    <Compile Include="Controllers\ProvincesController.cs" />
+    <Compile Include="Controllers\PaymentSettingsController.cs" />
     <Compile Include="Controllers\StateChaptersController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\ZonesController.cs" />
     <Compile Include="DashedRouteHandler.cs" />
     <Compile Include="Extensions.cs" />
@@ -200,21 +209,37 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LowercaseDashedRoute.cs" />
-    <Compile Include="Migrations\201805220322099_InitialModelMigration.cs" />
-    <Compile Include="Migrations\201805220322099_InitialModelMigration.Designer.cs">
-      <DependentUpon>201805220322099_InitialModelMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201805281554162_InitialModelMigration.cs" />
+    <Compile Include="Migrations\201805281554162_InitialModelMigration.Designer.cs">
+      <DependentUpon>201805281554162_InitialModelMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805281948146_CommentModelAdded.cs" />
+    <Compile Include="Migrations\201805281948146_CommentModelAdded.Designer.cs">
+      <DependentUpon>201805281948146_CommentModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805291038434_CommentModel.cs" />
+    <Compile Include="Migrations\201805291038434_CommentModel.Designer.cs">
+      <DependentUpon>201805291038434_CommentModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Blog\Article.cs" />
+    <Compile Include="Models\Blog\CategoryModel.cs" />
+    <Compile Include="Models\Blog\Comment.cs" />
+    <Compile Include="Models\Blog\Role.cs" />
+    <Compile Include="Models\Blog\TagModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="MVCRouteHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ArticleViewModel.cs" />
+    <Compile Include="ViewModels\EditUserViewModel.cs" />
     <Compile Include="ViewModels\MemberDashboardVM.cs" />
     <Compile Include="ViewModels\CustomDashboardVM.cs" />
     <Compile Include="ViewModels\MyProfileVM.cs" />
+    <Compile Include="ViewModels\PaymentVM.cs" />
     <Compile Include="ViewModels\ProvinceStateZoneVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -286,14 +311,6 @@
     <Content Include="Content\assets\css\theme-default\materialadmin.css" />
     <Content Include="Content\assets\css\theme-default\materialadmin_demo.css" />
     <Content Include="Content\assets\css\theme-default\materialadmin_print.css" />
-    <Content Include="Content\assets\js\core\source\App.js" />
-    <Content Include="Content\assets\js\core\source\App.min.js" />
-    <Content Include="Content\assets\js\core\source\AppCard.js" />
-    <Content Include="Content\assets\js\core\source\AppForm.js" />
-    <Content Include="Content\assets\js\core\source\AppNavigation.js" />
-    <Content Include="Content\assets\js\core\source\AppNavSearch.js" />
-    <Content Include="Content\assets\js\core\source\AppOffcanvas.js" />
-    <Content Include="Content\assets\js\core\source\AppVendor.js" />
     <Content Include="Content\assets\js\libs\autosize\jquery.autosize.js" />
     <Content Include="Content\assets\js\libs\autosize\jquery.autosize.min.js" />
     <Content Include="Content\assets\js\libs\autosize\license.txt" />
@@ -1340,12 +1357,21 @@
     <Content Include="Content\assets\less\libs\fullcalendar\license.txt" />
     <Content Include="Content\assets\less\libs\multi-select\LICENSE.txt" />
     <Content Include="Content\assets\less\libs\wizard\MIT-LICENSE.txt" />
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Dashboard\css\animate.min.css" />
+    <Content Include="Content\Dashboard\css\bootstrap.min.css" />
+    <Content Include="Content\Dashboard\css\demo.css" />
+    <Content Include="Content\Dashboard\css\paper-dashboard.css" />
+    <Content Include="Content\Dashboard\css\themify-icons.css" />
+    <Content Include="Content\Dashboard\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Dashboard\img\apple-icon.png" />
+    <Content Include="Content\Dashboard\img\background.jpg" />
+    <Content Include="Content\Dashboard\img\faces\face-0.jpg" />
+    <Content Include="Content\Dashboard\img\faces\face-1.jpg" />
+    <Content Include="Content\Dashboard\img\faces\face-2.jpg" />
+    <Content Include="Content\Dashboard\img\faces\face-3.jpg" />
+    <Content Include="Content\Dashboard\img\favicon.png" />
+    <Content Include="Content\Dashboard\img\new_logo.png" />
+    <Content Include="Content\Dashboard\img\tim_80x80.png" />
     <Content Include="Content\Default\font-awesome.min.css" />
     <Content Include="Content\Default\jquery-ui.css" />
     <Content Include="Content\Default\style.css" />
@@ -1386,6 +1412,7 @@
     <Content Include="Content\landingpage\js\modernizr-2.6.2.min.js" />
     <Content Include="Content\landingpage\js\move-top.js" />
     <Content Include="Content\landingpage\js\responsiveslides.min.js" />
+    <Content Include="Content\loading.GIF" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -1666,6 +1693,8 @@
     <Content Include="Content\assets\css\fonts\Material-Design-Iconic-Font.ttf" />
     <Content Include="Content\assets\css\fonts\Material-Design-Iconic-Font.woff" />
     <Content Include="404.html" />
+    <Content Include="images\nacclogo.png" />
+    <Content Include="PhotoUpload\ActiveMembers\Sebig180753298.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1674,12 +1703,13 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Scripts\Dashboard\bootstrap-checkbox-radio.js" />
+    <Content Include="Scripts\Dashboard\bootstrap-notify.js" />
+    <Content Include="Scripts\Dashboard\bootstrap.min.js" />
+    <Content Include="Scripts\Dashboard\chartist.min.js" />
+    <Content Include="Scripts\Dashboard\demo.js" />
+    <Content Include="Scripts\Dashboard\jquery-1.10.2.js" />
+    <Content Include="Scripts\Dashboard\paper-dashboard.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -1693,6 +1723,42 @@
     <Content Include="Content\landingpage\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\landingpage\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\landingpage\fonts\FontAwesome.otf" />
+    <Content Include="Content\Dashboard\css\.DS_Store" />
+    <Content Include="Content\Dashboard\img\.DS_Store" />
+    <Content Include="Content\Dashboard\img\faces\.DS_Store" />
+    <Content Include="Content\Dashboard\sass\.DS_Store" />
+    <Content Include="Content\Dashboard\sass\paper-dashboard.scss" />
+    <Content Include="Content\Dashboard\sass\paper\mixins\_buttons.scss" />
+    <Content Include="Content\Dashboard\sass\paper\mixins\_cards.scss" />
+    <Content Include="Content\Dashboard\sass\paper\mixins\_chartist.scss" />
+    <Content Include="Content\Dashboard\sass\paper\mixins\_icons.scss" />
+    <Content Include="Content\Dashboard\sass\paper\mixins\_inputs.scss" />
+    <Content Include="Content\Dashboard\sass\paper\mixins\_labels.scss" />
+    <Content Include="Content\Dashboard\sass\paper\mixins\_navbars.scss" />
+    <Content Include="Content\Dashboard\sass\paper\mixins\_sidebar.scss" />
+    <Content Include="Content\Dashboard\sass\paper\mixins\_tabs.scss" />
+    <Content Include="Content\Dashboard\sass\paper\mixins\_transparency.scss" />
+    <Content Include="Content\Dashboard\sass\paper\mixins\_vendor-prefixes.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_alerts.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_buttons.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_cards.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_chartist.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_checkbox-radio.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_dropdown.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_footers.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_inputs.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_misc.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_mixins.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_navbars.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_responsive.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_sidebar-and-main-panel.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_tables.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_typography.scss" />
+    <Content Include="Content\Dashboard\sass\paper\_variables.scss" />
+    <Content Include="Scripts\Dashboard\.DS_Store" />
+    <Content Include="Content\Dashboard\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\Dashboard\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\Dashboard\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -2940,11 +3006,42 @@
     <Content Include="Views\Zones\Details.cshtml" />
     <Content Include="Views\Zones\Edit.cshtml" />
     <Content Include="Views\Zones\Index.cshtml" />
+    <Content Include="Views\ActiveMembers\Payment.cshtml" />
+    <Content Include="Views\ActiveMembers\MakePayment.cshtml" />
+    <Content Include="Views\PaymentSettings\Create.cshtml" />
+    <Content Include="Views\PaymentSettings\Delete.cshtml" />
+    <Content Include="Views\PaymentSettings\Details.cshtml" />
+    <Content Include="Views\PaymentSettings\Edit.cshtml" />
+    <Content Include="Views\PaymentSettings\Index.cshtml" />
+    <Content Include="Views\ActiveMembers\PayStatus.cshtml" />
+    <Content Include="Views\ActiveMembers\PaymentError.cshtml" />
+    <Content Include="Views\Article\Create.cshtml" />
+    <Content Include="Views\Article\Delete.cshtml" />
+    <Content Include="Views\Article\Details.cshtml" />
+    <Content Include="Views\Article\Edit.cshtml" />
+    <Content Include="Views\Article\List.cshtml" />
+    <Content Include="Views\Tag\ListArticleByTags.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Update.cshtml" />
+    <Content Include="Views\User\List.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\List.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\Article\Comment.cshtml" />
+    <Content Include="Views\Article\CommentList.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Shared\_SideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\assets\js\core\cache\" />
-    <Folder Include="PhotoUpload\ActiveMembers\" />
+    <Folder Include="Content\assets\js\core\source\" />
     <Folder Include="Scripts\js\core\cache\" />
   </ItemGroup>
   <ItemGroup>
@@ -2965,8 +3062,14 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805220322099_InitialModelMigration.resx">
-      <DependentUpon>201805220322099_InitialModelMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805281554162_InitialModelMigration.resx">
+      <DependentUpon>201805281554162_InitialModelMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805281948146_CommentModelAdded.resx">
+      <DependentUpon>201805281948146_CommentModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805291038434_CommentModel.resx">
+      <DependentUpon>201805291038434_CommentModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

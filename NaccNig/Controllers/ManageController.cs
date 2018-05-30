@@ -10,7 +10,7 @@ using NaccNig;
 using NaccNig.Controllers;
 using NaccNig.Models;
 
-namespace NaccNigModels.Controllers
+namespace NaccNig.Controllers
 {
     [Authorize]
     public class ManageController : Controller

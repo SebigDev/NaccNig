@@ -42,13 +42,19 @@ namespace NaccNig.ViewModels
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
-        [Display(Name = "State Serving/Served")]
-        public string StateOfDeployment { get; set; }
+        [Display(Name = "Position")]
+        public string Position { get; set; }
         [Required]
+        public string YearServed { get; set; }
+
         [Display(Name = "State Code")]
         public string StateCode { get; set; }
         [Required]
         [Display(Name = "Call Up Number")]
         public string CallUpNumber { get; set; }
+        public string StateChapter { get; set; }
+        public string Zone { get; set; }
+        public string PaymentName { get; set; }
+        public int Amount { get; set; }
     }
 }

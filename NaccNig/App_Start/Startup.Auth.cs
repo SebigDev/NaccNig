@@ -8,7 +8,7 @@ using Owin;
 using NaccNig.Models;
 using NaccNig;
 
-namespace NaccNigModels
+namespace NaccNig
 {
     public partial class Startup
     {

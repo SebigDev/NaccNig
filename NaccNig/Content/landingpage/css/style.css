@@ -73,29 +73,28 @@ h1 a.navbar-brand {
 }
 h1 a span{color:#00cdce;}
 nav.navbar.navbar-default.navbar-fixed-top {
-	background:rgba(12, 19, 9, 0);
-	border: none;
-	padding:2em;
-	-webkit-transition:.5s all;
-	-moz-transition:.5s all; 
-	transition:.5s all;
+    background: rgb(14, 160, 80);
+    border: none;
+    padding: 2em;
+    -webkit-transition: .5s all;
+    -moz-transition: .5s all;
+    transition: .5s all;
 }
 .navbar{margin-bottom:0px;}
 nav.navbar.navbar-default.navbar-fixed-top.top-nav-collapse {
-	background: rgba(0, 0, 0, 0.49);
-	padding: 1em;
-	z-index: 9;
+    background: rgb(14, 160, 80);
+    padding: 1em;
+    z-index: 9;
 }
 .navbar-default .navbar-nav > li > a {
-	color: #fff;
-	font-size: 16px;
-	font-weight: 400;
-	letter-spacing: 1px;
-		margin: 0 1em;
-		background-color:rgba(12, 11, 11, 0);
-		border:none;
-	 border-bottom: 2px solid #fff;
-   
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 0 1em;
+    background-color: rgb(14, 160, 80);
+    border: none;
+    border-bottom: 2px solid #fff;
 }
 .navbar-default .navbar-brand {
 	padding:15px 0px;
@@ -105,7 +104,7 @@ nav.navbar.navbar-default.navbar-fixed-top.top-nav-collapse {
 	color:#00cdce;
 }
 nav.navbar.navbar-default.navbar-fixed-top.top-nav-collapse {
-	background: rgba(25, 25, 25, 0.8);
+    background: rgb(14, 160, 80);
 }
 
 .nav > li > a {
@@ -121,10 +120,10 @@ nav.navbar.navbar-default.navbar-fixed-top.top-nav-collapse {
 /*-- Slider --*/
 .w3-oneimg,.w3-twoimg,.w3-threeimg,.w3-fourimg{  background-size: cover;
 	min-height: 800px;}
-.w3-oneimg{  background: url(../images/b1.jpg)no-repeat center;}
-.w3-twoimg{  background: url(../images/b2.jpg)no-repeat center;}
-.w3-threeimg{  background: url(../images/b3.jpg)no-repeat center;}
-.w3-fourimg{    background: url(../images/b4.jpg)no-repeat center;}
+.w3-oneimg{background: url(../images/b1.jpg)no-repeat center;}
+.w3-twoimg{background: url(../images/b2.jpg)no-repeat center;}
+.w3-threeimg{background: url(../images/b3.jpg)no-repeat center;}
+.w3-fourimg{background: url(../images/b4.jpg)no-repeat center;}
 #slider {
 	box-shadow: none;
 	-moz-box-shadow: none;

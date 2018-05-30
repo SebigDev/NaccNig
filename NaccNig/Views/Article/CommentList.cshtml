@@ -1,0 +1,23 @@
+﻿@model IEnumerable<NaccNig.Models.Blog.Comments>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        
+        <th></th>
+    </tr>
+@foreach (var item in Model ) {
+    <tr>
+        <td>
+            @ViewBag.PlayList;
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Comments.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Comments.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Comments.Id })
+        </td>*@
+    </tr>
+}
+
+</table>

@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNet.Identity
+@using NaccNig.Models
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background:darkgreen">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                <img src="~/images/nacclogo.png" height="40" width="60" />
+
+                <span>Nacc</span>Plateau
+            </a>
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+            @Html.AntiForgeryToken()
+            <ul class="user-menu">
+                <li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        @if (User.IsInRole(RoleName.Admin))
+        {
+                <img src="~/PhotoUpload/ActiveMembers/Sebig180753298.png" height="40" width="40" class="img-circle">
+                <use xlink:href="#stroked-male-user">
+                </use>@User.Identity.GetUserName() <span class="caret"></span>
+}
+                        @if (User.IsInRole(RoleName.ActiveMember))
+        {
+                <img src="@Url.Content(Model.Photo)" height="40" width="40" class="img-circle">
+                <use xlink:href="#stroked-male-user">
+                </use>@User.Identity.GetUserName() <span class="caret"></span>
+}
+                    </a>
+                    @if (User.IsInRole(RoleName.Admin))
+    {
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Profile</a></li>
+                    <li><a href="#"><svg class="glyph stroked gear"><use xlink:href="#stroked-gear"></use></svg> Update Profile</a></li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+                </ul>
+}
+                    @if (User.IsInRole(RoleName.ActiveMember))
+    {
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="@Url.Action("MyProfile","ActiveMembers")"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Profile</a></li>
+                    <li><a href="@Url.Action("Update","ActiveMembers",new { id= Model.ActiveMemberId})"><svg class="glyph stroked gear"><use xlink:href="#stroked-gear"></use></svg> Update Profile</a></li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+                </ul>
+}
+                </li>
+            </ul>
+            }
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>

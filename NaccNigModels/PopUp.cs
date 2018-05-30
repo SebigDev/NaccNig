@@ -27,11 +27,12 @@ namespace NaccNigModels.PopUp
 
     public enum MemberCategory
     {
+       
         [Description("Serving Corps Member")]
         ActiveMember = 1,
-        [Description("Passed Out Of Service")]
+        [Description("Associate Member")]
         PastMember,
-        [Description("Patron/Patroness")]
+        [Description("Honorary Member")]
         ExecutiveMember
 
     }

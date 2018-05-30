@@ -26,27 +26,27 @@ namespace NaccNig.Controllers
         }
 
 
-        public async Task<ActionResult> Dashboard(MemberDashboardVM model)
-        {
-            var userId = User.Identity.GetUserId();
-            var pastUser = await db.PastMember.AsNoTracking().SingleOrDefaultAsync(p=>p.PastMemberId.Equals(userId));
-            if(pastUser != null)
-            {
-                model.Firstname = pastUser.Firstname;
-                model.Middlename = pastUser.Middlename;
-                model.Surname = pastUser.Surname;
-                model.Age = pastUser.Age;
-                model.Address = pastUser.Address;
-                model.Gender = pastUser.Gender;
-                model.PhoneNumber = pastUser.PhoneNumber;
-                model.StateOfDeployment = pastUser.StateServed;
-                model.Dob = pastUser.Dob;
+        //public async Task<ActionResult> Dashboard(MemberDashboardVM model)
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var pastUser = await db.PastMember.AsNoTracking().SingleOrDefaultAsync(p=>p.PastMemberId.Equals(userId));
+        //    if(pastUser != null)
+        //    {
+        //        model.Firstname = pastUser.Firstname;
+        //        model.Middlename = pastUser.Middlename;
+        //        model.Surname = pastUser.Surname;
+        //        model.Age = pastUser.Age;
+        //        model.Address = pastUser.Address;
+        //        model.Gender = pastUser.Gender;
+        //        model.PhoneNumber = pastUser.PhoneNumber;
+        //        model.StateOfDeployment = pastUser.StateServed;
+        //        model.Dob = pastUser.Dob;
 
-            }
+        //    }
 
-            return View(model);
+        //    return View(model);
 
-        }
+        //}
         // GET: PastMembers/Details/5
         public ActionResult Details(string id)
         {

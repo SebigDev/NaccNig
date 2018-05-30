@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using NaccNig.Models
+<!DOCTYPE html>
 <html lang="zxx">
 <head>
     <title>@ViewBag.Title</title>
@@ -40,7 +41,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </button>
                 <h1>
                     <a class="navbar-brand" href="index.html">
-                        nacc<span>nigeria</span>
+                        nacc<span>Plateau</span>
                     </a>
                 </h1>
             </div>
@@ -49,7 +50,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                     <li class="hidden"><a class="page-scroll" href="#page-top"></a>	</li>
-                    <li><a class="page-scroll" href="#home">Home</a></li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (User.IsInRole(RoleName.Admin))
+                        {
+                            <li><a class="" href="@Url.Action("Dashboard","Home")">Dashboard</a></li>
+                        }
+                        if (User.IsInRole(RoleName.ActiveMember))
+                        {
+                            <li><a class="" href="@Url.Action("Dashboard","ActiveMembers")">Dashboard</a></li>
+                        }
+                    }
+                    else
+                    {
+                          <li><a class="page-scroll" href="@Url.Action("Index","Home")">Home</a></li>
+                    }
+                  
                     <li><a class="page-scroll scroll" href="#about">About</a></li>
                     <li><a class="page-scroll scroll" href="#contact">Contact</a></li>
                             @Html.Partial("loginView")
@@ -65,7 +81,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="container">
                     <!-- Copyright -->
                     <div class="col-md-7 copyright">
-                        <p>© 2017 Housing. All Rights Reserved | Design by <a href="http://w3layouts.com/" target="_blank"> W3layouts </a></p>
+                        <p>© @DateTime.Now.Year  NACC Nigeria. All Rights Reserved | Design by <a href="#" target="_blank"> Sebig Solutions </a></p>
 
                     </div>
                     <!-- //Copyright -->

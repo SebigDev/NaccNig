@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using NaccNig.Models;
 using NaccNigModels.PopUp;
+
 namespace NaccNig.Models
 {
 
