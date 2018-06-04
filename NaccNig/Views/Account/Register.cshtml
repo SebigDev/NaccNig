@@ -3,69 +3,72 @@
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/Default.cshtml";
 }
-        <div class="section-body">
-            <div class="row">
-                <div class="col-md-5 col-md-offset-4">
+<body class="app flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+           
+        <div class="col-md-6">
+            <div class="card mx-4">
+                <div class="card-body p-4">
                     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="head agile">
-                            <div class="login w3">
-                                <div class="sap_tabs">
-                                    <div id="horizontalTab" style="display: inline-table; width: 100%; margin: 0px;">
-                                        <h2 class="text-center">NACC SIGNUP FORM</h2>
-                                        <hr />
-                                        @Html.ValidationSummary("", new { @class = "text-danger" })
-                                        <div class="resp-tabs-container">
-                                            <div class="tab-1 resp-tab-content">
-                                                <div class="login-top agileinfo">
+    {
 
-                                                    <div class="w3_agileits_main_grid w3l_main_grid">
-                                                        <div class="agileits_grid">
-                                                            <h4 class="text-success"><i>E-mail Address </i></h4>
-                                                            <div class="name">
-                                                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                                                            </div>
-                                                            <div class="clear"></div>
-                                                        </div>
-                                                        <div class="agileits_grid">
-                                                            <h4 class="text-success"><i>Password</i></h4>
-                                                            <div class="password">
-                                                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                                                            </div>
-                                                            <div class="clear"></div>
-                                                        </div>
+                @Html.AntiForgeryToken()
 
-                                                        <div class="agileits_grid">
-                                                            <h4 class="text-success"><i>Confirm Password</i></h4>
-                                                            <div class="password">
-                                                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                                                            </div>
-                                                            <div class="clear"></div>
-                                                        </div>
-                                                        <div class="agileits_grid">
-                                                            <h4 class="text-success"><i>Membership Category</i></h4>
-                                                            <div class="password">
-                                                                @Html.DropDownListFor(m=>m.MemberCategory, null, "-- Select Member Type --", new { @class = "form-control" })
-                                                            </div>
-                                                            <div class="clear"></div>
-                                                        </div>
-                                                        <br />
-                                                        <div class="agileits_grid">
-                                                            <button class="btn btn-primary">Register</button>
-                                                            <p class="text-warning text-right">@Html.ActionLink("Already Have Account?", "Login")</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                <img src="~/images/nacclogo.png" height="60" width="70" />
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <h1>Register</h1>
+
+                <p class="text-muted">Create your account</p>
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="icon-lock"></i>
+                        </span>
+                    </div>
+                    @Html.TextBoxFor(m => m.Email, htmlAttributes: new { @class = "form-control", @placeholder = "eMail Address" })
+                </div>
+
+                <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="icon-lock"></i>
+                        </span>
+                    </div>
+                    @Html.PasswordFor(m => m.Password, htmlAttributes: new { @class = "form-control", @placeholder = "Password" })
+                </div>
+                <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="icon-lock"></i>
+                        </span>
+                    </div>
+                    @Html.PasswordFor(m => m.ConfirmPassword, htmlAttributes: new { @class = "form-control", @placeholder = "Re-Enter Password" })
+                </div>
+                <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="icon-lock"></i>
+                        </span>
+                    </div>
+                    @Html.DropDownListFor(m => m.MemberCategory, null, "Select Member Type", htmlAttributes: new { @class = "form-control" })
+                </div>
+
+                <button class="btn  btn-success" style="width:100%">Create Account</button>
+
+}
+                    <div class="card-footer p-4">
+                       
+                                    <span>@Html.ActionLink("Already Have Account?", "Login", "Account")</span>
+                                
                         </div>
-                    }
                     </div>
                 </div>
+            </div>
         </div>
-
+          
+</body>

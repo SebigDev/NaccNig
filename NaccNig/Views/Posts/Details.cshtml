@@ -1,0 +1,55 @@
+﻿@model NaccNig.Models.BlogPost.Post
+
+
+@{
+	ViewBag.Title = "Details";
+	bool isAdmin = ViewBag.IsAdmin;
+	Layout = "~/Views/Shared/Default.cshtml";
+}
+
+
+
+
+<div class="row">
+
+	<!-- BEGIN BLOG POST TEXT -->
+	<div class="col-md-9">
+		<article class="style-default-bright">
+			<div>
+				<img class="img-responsive" src="../../../assets/img/img1.jpg?1403934956" alt="" />
+			</div>
+			<div class="card-body">
+				@PostHelper.Render(Model, Html, isAdmin, true)
+				<div class="well clearfix">
+					<h4>@User.Identity.Name</h4>
+					
+				</div>
+			</div><!--end .card-body -->
+		</article>
+	</div><!--end .col -->
+	<!-- END BLOG POST TEXT -->
+	<!-- BEGIN BLOG POST MENUBAR -->
+	<div class="col-md-3">
+		<div class="card-body">
+			<h3 class="text-light">Categories</h3>
+            <ul class="nav nav-pills nav-stacked nav-transparent">
+                @foreach (var cat in Model.Tags)
+    {
+            <li><a href="#"><span class="badge pull-right">@cat.Posts.Count()</span>@cat.Name</a></li>
+
+}
+            </ul>
+			<h3 class="text-light">Tags</h3>
+			<div class="list-tags">
+				@foreach(var item in Model.Tags)
+                {
+                    <a class="btn btn-xs btn-primary">@item.Name</a>
+                }
+
+			</div>
+		</div><!--end .card-body -->
+	</div><!--end .col -->
+	<!-- END BLOG POST MENUBAR -->
+
+</div><!--end .row -->	
+				

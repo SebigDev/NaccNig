@@ -14,7 +14,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using NaccNigModels.PopUp;
-using NaccNig.Models.Blog;
 using NaccNigModels.Members;
 
 namespace NaccNig.Controllers.Admin
@@ -233,12 +232,12 @@ namespace NaccNig.Controllers.Admin
                     .Where(u => u.Id.Equals(id))
                     .First();
 
-                var userArticles = database.Articles
-                    .Where(a => a.AuthorId== user.Id);
+                var userArticles = database.Post
+                    .Where(a => a.UserId == user.Id);
 
                 foreach(var article in userArticles)
                 {
-                    database.Articles.Remove(article);
+                    database.Post.Remove(article);
                 }
 
                 database.Users.Remove(user);

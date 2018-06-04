@@ -1,0 +1,37 @@
+﻿@model IEnumerable<string>
+    @{ 
+       // Layout = "~/Views/Shared/Default.cshtml";
+    }
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><a href="@Url.Action("Index", "Posts",
+                new
+                {
+                    category = "",
+                    page = 1
+
+                })">Latest Post</a></h4>
+    </div>
+   
+    
+        @foreach (var link in Model)
+            {
+           
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="@Url.Action("Index", "Posts",
+                new
+                {
+                    category = link,
+                    page = 1
+
+                })">@link</a>
+            </li>
+            </ul>
+
+
+        }
+
+</div>
+

@@ -1,6 +1,4 @@
 ﻿using NaccNig.Models;
-using NaccNig.Models.Blog;
-using NaccNigModels.Blog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

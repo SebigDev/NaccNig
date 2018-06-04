@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Verify Monthly Dues";
+}
+
+<div class="row">
+    <div class="card">
+        <div class="card-head style-primary">
+            <header>
+                Monthly Dues Record
+            </header>
+
+        </div><!--end .card-head -->
+        <div class="card-body">
+            <!-- BEGIN DATATABLE 2 -->
+            <div class="table-responsive">
+                <table id="Jdatatable" class="table order-column hover">
+                    <thead>
+                    <tr>
+                        
+                        <th>FullName</th>
+                        <th>Reference No</th>
+                        <th>Date</th>
+                        <th>Gender</th>
+                        <th>PhoneNumber</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div><!--end .table-responsive -->
+        </div><!--end .col -->
+      
+    </div><!--end .col -->
+</div><!--end .row -->
+<!-- END DATATABLE 2 -->
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        window.oTable = $("#Jdatatable").DataTable({
+            "processing": true, // for show progress bar while loading
+            "serverSide": true, // if it is true the preocess is done on server side
+            "filter": true, // disables search box
+            "info": true,
+
+            "stateSave": true,
+            "orderMulti": false, // disable multiple column loading at once
+            "ajax": {
+                "url": "/SchoolFeePayments/GetSchoolFee",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "MatricNo", "autoWidth": true },
+                { "data": "FullName", "autoWidth": true },
+                { "data": "ReferenceNo", "autoWidth": true },
+                { "data": "Date", "autoWidth": true },
+                { "data": "Gender", "autoWidth": true },
+                { "data": "ProgrammeName", "autoWidth": true },
+                { "data": "LevelName", "autoWidth": true },
+                { "data": "PhoneNumber", "autoWidth": true }
+
+            ]
+        });
+    });
+
+
+</script>

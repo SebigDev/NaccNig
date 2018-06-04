@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 @using NaccNig.Models
 @using NaccNigModels.Members
-@using NaccNigModels.Payment
 @using NaccNigModels.Structures
 
 <!DOCTYPE html>
@@ -14,7 +13,7 @@
     <link href="~/Content/Dashboard/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/Dashboard/css/datepicker3.css" rel="stylesheet">
     <link href="~/Content/Dashboard/css/styles.css" rel="stylesheet">
-
+    <link href="~/Content/Default/pace.css" rel="stylesheet" />
     <!--Icons-->
     <script src="~/Scripts/Dashboard/lumino.glyphs.js"></script>
 
@@ -25,17 +24,14 @@
 
 </head>
 <body>
-    @RenderBody();
-    @Html.Partial("_NavBar");
-    @Html.Partial("_SideBar");
+    @RenderBody()
+    @Html.Partial("_NavBar")
+    @Html.Partial("_SideBar")
 
 
     <script src="~/Scripts/Dashboard/jquery-1.11.1.min.js"></script>
     <script src="~/Scripts/Dashboard/bootstrap.min.js"></script>
-    <script src="~/Scripts/Dashboard/chart.min.js"></script>
-    <script src="~/Scripts/Dashboard/chart-data.js"></script>
-    <script src="~/Scripts/Dashboard/easypiechart.js"></script>
-    <script src="~/Scripts/Dashboard/easypiechart-data.js"></script>
+   
     <script src="~/Scripts/Dashboard/bootstrap-datepicker.js"></script>
 
     @Scripts.Render("~/bundles/jquery")

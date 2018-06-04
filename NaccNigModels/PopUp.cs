@@ -25,6 +25,20 @@ namespace NaccNigModels.PopUp
         Oyo, Plateau, Rivers, Sokoto, Taraba, Yobe, Zamfara
     }
 
+    public enum PaymentType
+    {
+        MembershipRegistration,
+        MonthlyDues
+    }
+    public enum RemitaPaymentType
+    {
+        MasterCard = 1, Visa, Verve, PocketMoni, POS, BANK_BRANCH, BANK_INTERNET, REMITA_PAY, RRRGEN
+    }
+    public enum PMode
+    {
+        Cash = 1, Cheque, Teller, OnlinePayment
+    }
+
     public enum MemberCategory
     {
        

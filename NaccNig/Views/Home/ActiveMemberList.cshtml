@@ -1,13 +1,11 @@
 ﻿
 @{
     ViewBag.Title = "MemberList";
-    Layout = "~/Views/Shared/DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/Default.cshtml";
 }
 
-!-- BEGIN CONTENT-->
 
-<div id="content">
-    <section>
+
         <div class="section-body">
             <div class="row">
                 <div class="col-md-12">
@@ -18,7 +16,8 @@
                             <th>State Code</th>
                             <th>Call Up Number</th>
                             <th>State Of Origin</th>
-                            <th>State Of Deployment</th>
+                            <th>State Chapter</th>
+                            <th>Zone</th>
                             <th>Phone Number</th>
                             <th>Gender</th>
                             <th>Age</th>
@@ -31,7 +30,8 @@
                             <td>@a.StateCode</td>
                             <td>@a.CallUpNumber</td>
                             <td>@a.StateOfOrigin</td>
-                            <td>@a.StateOfDeployment</td>
+                            <td>@a.StateChapter</td>
+                            <td>@a.Zone</td>
                             <td>@a.PhoneNumber</td>
                             <td>@a.Gender</td>
                             <td>@a.Age</td>
@@ -49,8 +49,6 @@
 
                 </div>
             </div>
-        </section>
-        </div>
-
+ 
 
 

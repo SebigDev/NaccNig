@@ -121,6 +121,7 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -189,18 +190,20 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BusinessLogic\QueryCommand.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActiveMembersController.cs" />
-    <Compile Include="Controllers\Admin\CategoryController.cs" />
     <Compile Include="Controllers\Admin\UserController.cs" />
-    <Compile Include="Controllers\ArticleController.cs" />
-    <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MemberFeeTypesController.cs" />
+    <Compile Include="Controllers\MembershipFeesController.cs" />
     <Compile Include="Controllers\PastMembersController.cs" />
-    <Compile Include="Controllers\PaymentSettingsController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\RemitaServicesController.cs" />
     <Compile Include="Controllers\StateChaptersController.cs" />
-    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\ZonesController.cs" />
     <Compile Include="DashedRouteHandler.cs" />
     <Compile Include="Extensions.cs" />
@@ -209,38 +212,59 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LowercaseDashedRoute.cs" />
-    <Compile Include="Migrations\201805281554162_InitialModelMigration.cs" />
-    <Compile Include="Migrations\201805281554162_InitialModelMigration.Designer.cs">
-      <DependentUpon>201805281554162_InitialModelMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201806010448359_InitialMigrations.cs" />
+    <Compile Include="Migrations\201806010448359_InitialMigrations.Designer.cs">
+      <DependentUpon>201806010448359_InitialMigrations.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805281948146_CommentModelAdded.cs" />
-    <Compile Include="Migrations\201805281948146_CommentModelAdded.Designer.cs">
-      <DependentUpon>201805281948146_CommentModelAdded.cs</DependentUpon>
+    <Compile Include="Migrations\201806032054532_PaymentRemittaIntegrated.cs" />
+    <Compile Include="Migrations\201806032054532_PaymentRemittaIntegrated.Designer.cs">
+      <DependentUpon>201806032054532_PaymentRemittaIntegrated.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805291038434_CommentModel.cs" />
-    <Compile Include="Migrations\201805291038434_CommentModel.Designer.cs">
-      <DependentUpon>201805291038434_CommentModel.cs</DependentUpon>
+    <Compile Include="Migrations\201806041205513_PaymentIntegrated.cs" />
+    <Compile Include="Migrations\201806041205513_PaymentIntegrated.Designer.cs">
+      <DependentUpon>201806041205513_PaymentIntegrated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806041247130_FeeCategoryIdAdded.cs" />
+    <Compile Include="Migrations\201806041247130_FeeCategoryIdAdded.Designer.cs">
+      <DependentUpon>201806041247130_FeeCategoryIdAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806041318255_PaymentOptionsAdded.cs" />
+    <Compile Include="Migrations\201806041318255_PaymentOptionsAdded.Designer.cs">
+      <DependentUpon>201806041318255_PaymentOptionsAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806041827486_UpdateOnPayCreate.cs" />
+    <Compile Include="Migrations\201806041827486_UpdateOnPayCreate.Designer.cs">
+      <DependentUpon>201806041827486_UpdateOnPayCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Blog\Article.cs" />
-    <Compile Include="Models\Blog\CategoryModel.cs" />
-    <Compile Include="Models\Blog\Comment.cs" />
-    <Compile Include="Models\Blog\Role.cs" />
-    <Compile Include="Models\Blog\TagModel.cs" />
+    <Compile Include="Models\BlogPost\Comment.cs" />
+    <Compile Include="Models\BlogPost\Post.cs" />
+    <Compile Include="Models\BlogPost\Tag.cs" />
+    <Compile Include="Models\RemitaPaymentLogs.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="MVCRouteHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\RemitaConfigParam.cs" />
+    <Compile Include="Services\RemitaResponse.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\ArticleViewModel.cs" />
+    <Compile Include="ViewModels\BaseVm.cs" />
+    <Compile Include="ViewModels\ConfirmPaymentVM.cs" />
     <Compile Include="ViewModels\EditUserViewModel.cs" />
     <Compile Include="ViewModels\MemberDashboardVM.cs" />
     <Compile Include="ViewModels\CustomDashboardVM.cs" />
+    <Compile Include="ViewModels\MembershipFeeVM.cs" />
     <Compile Include="ViewModels\MyProfileVM.cs" />
     <Compile Include="ViewModels\PaymentVM.cs" />
+    <Compile Include="ViewModels\PostComment\CommentVM.cs" />
+    <Compile Include="ViewModels\PostComment\PostVM.cs" />
     <Compile Include="ViewModels\ProvinceStateZoneVM.cs" />
+    <Compile Include="ViewModels\RemitaNotificationVM.cs" />
+    <Compile Include="ViewModels\RemitaPostVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\assets\css\fonts\fontawesome-webfont.svg" />
@@ -1357,11 +1381,7 @@
     <Content Include="Content\assets\less\libs\fullcalendar\license.txt" />
     <Content Include="Content\assets\less\libs\multi-select\LICENSE.txt" />
     <Content Include="Content\assets\less\libs\wizard\MIT-LICENSE.txt" />
-    <Content Include="Content\Dashboard\css\animate.min.css" />
     <Content Include="Content\Dashboard\css\bootstrap.min.css" />
-    <Content Include="Content\Dashboard\css\demo.css" />
-    <Content Include="Content\Dashboard\css\paper-dashboard.css" />
-    <Content Include="Content\Dashboard\css\themify-icons.css" />
     <Content Include="Content\Dashboard\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Dashboard\img\apple-icon.png" />
     <Content Include="Content\Dashboard\img\background.jpg" />
@@ -1374,6 +1394,7 @@
     <Content Include="Content\Dashboard\img\tim_80x80.png" />
     <Content Include="Content\Default\font-awesome.min.css" />
     <Content Include="Content\Default\jquery-ui.css" />
+    <Content Include="Content\Default\pace.css" />
     <Content Include="Content\Default\style.css" />
     <Content Include="Content\landingpage\css\bootstrap.css" />
     <Content Include="Content\landingpage\css\font-awesome.min.css" />
@@ -1416,37 +1437,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="images\avatar1.jpg" />
-    <Content Include="images\avatar10.jpg" />
-    <Content Include="images\avatar11.jpg" />
-    <Content Include="images\avatar12.jpg" />
-    <Content Include="images\avatar13.jpg" />
-    <Content Include="images\avatar14.jpg" />
-    <Content Include="images\avatar2.jpg" />
-    <Content Include="images\avatar3.jpg" />
-    <Content Include="images\avatar4.jpg" />
-    <Content Include="images\avatar5.jpg" />
-    <Content Include="images\avatar6.jpg" />
-    <Content Include="images\avatar7.jpg" />
-    <Content Include="images\avatar8.jpg" />
-    <Content Include="images\avatar9.jpg" />
-    <Content Include="images\img1.jpg" />
-    <Content Include="images\img10.jpg" />
-    <Content Include="images\img11.jpg" />
-    <Content Include="images\img12.jpg" />
-    <Content Include="images\img13.jpg" />
-    <Content Include="images\img14.jpg" />
-    <Content Include="images\img15.jpg" />
-    <Content Include="images\img16.jpg" />
-    <Content Include="images\img2.jpg" />
-    <Content Include="images\img3.jpg" />
-    <Content Include="images\img4.jpg" />
-    <Content Include="images\img5.jpg" />
-    <Content Include="images\img6.jpg" />
-    <Content Include="images\img7.jpg" />
-    <Content Include="images\img8.jpg" />
-    <Content Include="images\img9.jpg" />
-    <Content Include="images\LICENSE.txt" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1694,7 +1684,8 @@
     <Content Include="Content\assets\css\fonts\Material-Design-Iconic-Font.woff" />
     <Content Include="404.html" />
     <Content Include="images\nacclogo.png" />
-    <Content Include="PhotoUpload\ActiveMembers\Sebig180753298.png" />
+    <Content Include="images\remita-payment-logo-horizonal.png" />
+    <Content Include="PhotoUpload\ActiveMembers\FB_IMG_1435344936545180733607.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1723,7 +1714,6 @@
     <Content Include="Content\landingpage\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\landingpage\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\landingpage\fonts\FontAwesome.otf" />
-    <Content Include="Content\Dashboard\css\.DS_Store" />
     <Content Include="Content\Dashboard\img\.DS_Store" />
     <Content Include="Content\Dashboard\img\faces\.DS_Store" />
     <Content Include="Content\Dashboard\sass\.DS_Store" />
@@ -1759,6 +1749,8 @@
     <Content Include="Content\Dashboard\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\Dashboard\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\Dashboard\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="App_Code\PostHelper.cshtml" />
+    <Content Include="App_Code\PosthelperIndex.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -2989,8 +2981,6 @@
     <Content Include="Views\ActiveMembers\Update.cshtml" />
     <Content Include="Views\Shared\LandingPage.cshtml" />
     <Content Include="Views\Shared\loginView.cshtml" />
-    <Content Include="Views\Account\ActiveRedirect.cshtml" />
-    <Content Include="Views\Account\PastRedirect.cshtml" />
     <Content Include="Views\Provinces\Create.cshtml" />
     <Content Include="Views\Provinces\Delete.cshtml" />
     <Content Include="Views\Provinces\Details.cshtml" />
@@ -3006,7 +2996,6 @@
     <Content Include="Views\Zones\Details.cshtml" />
     <Content Include="Views\Zones\Edit.cshtml" />
     <Content Include="Views\Zones\Index.cshtml" />
-    <Content Include="Views\ActiveMembers\Payment.cshtml" />
     <Content Include="Views\ActiveMembers\MakePayment.cshtml" />
     <Content Include="Views\PaymentSettings\Create.cshtml" />
     <Content Include="Views\PaymentSettings\Delete.cshtml" />
@@ -3015,34 +3004,61 @@
     <Content Include="Views\PaymentSettings\Index.cshtml" />
     <Content Include="Views\ActiveMembers\PayStatus.cshtml" />
     <Content Include="Views\ActiveMembers\PaymentError.cshtml" />
-    <Content Include="Views\Article\Create.cshtml" />
-    <Content Include="Views\Article\Delete.cshtml" />
-    <Content Include="Views\Article\Details.cshtml" />
-    <Content Include="Views\Article\Edit.cshtml" />
-    <Content Include="Views\Article\List.cshtml" />
-    <Content Include="Views\Tag\ListArticleByTags.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Update.cshtml" />
     <Content Include="Views\User\List.cshtml" />
-    <Content Include="Views\Category\Create.cshtml" />
-    <Content Include="Views\Category\Delete.cshtml" />
-    <Content Include="Views\Category\Edit.cshtml" />
-    <Content Include="Views\Category\List.cshtml" />
-    <Content Include="Views\Comments\Create.cshtml" />
-    <Content Include="Views\Comments\Delete.cshtml" />
-    <Content Include="Views\Comments\Details.cshtml" />
-    <Content Include="Views\Comments\Edit.cshtml" />
-    <Content Include="Views\Comments\Index.cshtml" />
-    <Content Include="Views\Article\Comment.cshtml" />
-    <Content Include="Views\Article\CommentList.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Shared\_SideBar.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Posts\Menu.cshtml" />
+    <Content Include="Views\MembershipFees\CreateFee.cshtml" />
+    <Content Include="Views\MembershipFees\Delete.cshtml" />
+    <Content Include="Views\MembershipFees\Details.cshtml" />
+    <Content Include="Views\MembershipFees\Edit.cshtml" />
+    <Content Include="Views\MembershipFees\Index.cshtml" />
+    <Content Include="Views\MembershipFees\MakePayment.cshtml" />
+    <Content Include="Views\MembershipFees\PrintReceipt.cshtml" />
+    <Content Include="Views\MembershipFees\RetryMembershipRegistration.cshtml" />
+    <Content Include="Views\MembershipFees\MembershipReg.cshtml" />
+    <Content Include="Views\MembershipFees\SubmitRemita.cshtml" />
+    <Content Include="Views\MembershipFees\VerifyMembershipRegFee.cshtml" />
+    <Content Include="Views\MembershipFees\VerifyMonthlyDues.cshtml" />
+    <Content Include="Views\MembershipFees\RetryMonthlyDues.cshtml" />
+    <Content Include="Views\FeeCategories\Create.cshtml" />
+    <Content Include="Views\FeeCategories\Delete.cshtml" />
+    <Content Include="Views\FeeCategories\Details.cshtml" />
+    <Content Include="Views\FeeCategories\Edit.cshtml" />
+    <Content Include="Views\FeeCategories\Index.cshtml" />
+    <Content Include="Views\MemberFeeTypes\Create.cshtml" />
+    <Content Include="Views\MemberFeeTypes\Delete.cshtml" />
+    <Content Include="Views\MemberFeeTypes\Details.cshtml" />
+    <Content Include="Views\MemberFeeTypes\Edit.cshtml" />
+    <Content Include="Views\MemberFeeTypes\Index.cshtml" />
+    <Content Include="Views\MembershipFees\Create.cshtml" />
+    <Content Include="Views\RemitaPaymentLogs\ConfirmationPage.cshtml" />
+    <Content Include="Views\RemitaPaymentLogs\ConfrimRrrPayment.cshtml" />
+    <Content Include="Views\RemitaPaymentLogs\Create.cshtml" />
+    <Content Include="Views\RemitaPaymentLogs\Delete.cshtml" />
+    <Content Include="Views\RemitaPaymentLogs\Details.cshtml" />
+    <Content Include="Views\RemitaPaymentLogs\Edit.cshtml" />
+    <Content Include="Views\RemitaPaymentLogs\Index.cshtml" />
+    <Content Include="Views\RemitaPaymentLogs\SubmitConfirmationPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\assets\js\core\cache\" />
     <Folder Include="Content\assets\js\core\source\" />
     <Folder Include="Scripts\js\core\cache\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\RemitaServices\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -3062,14 +3078,23 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805281554162_InitialModelMigration.resx">
-      <DependentUpon>201805281554162_InitialModelMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806010448359_InitialMigrations.resx">
+      <DependentUpon>201806010448359_InitialMigrations.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805281948146_CommentModelAdded.resx">
-      <DependentUpon>201805281948146_CommentModelAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806032054532_PaymentRemittaIntegrated.resx">
+      <DependentUpon>201806032054532_PaymentRemittaIntegrated.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805291038434_CommentModel.resx">
-      <DependentUpon>201805291038434_CommentModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806041205513_PaymentIntegrated.resx">
+      <DependentUpon>201806041205513_PaymentIntegrated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806041247130_FeeCategoryIdAdded.resx">
+      <DependentUpon>201806041247130_FeeCategoryIdAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806041318255_PaymentOptionsAdded.resx">
+      <DependentUpon>201806041318255_PaymentOptionsAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806041827486_UpdateOnPayCreate.resx">
+      <DependentUpon>201806041827486_UpdateOnPayCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

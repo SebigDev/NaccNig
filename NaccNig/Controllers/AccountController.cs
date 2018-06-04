@@ -16,6 +16,7 @@ using NaccNig.Models;
 using NaccNig.ViewModels;
 using NaccNigModels.PopUp;
 
+
 namespace NaccNig.Controllers
 {
     [Authorize]
@@ -251,8 +252,7 @@ namespace NaccNig.Controllers
             {
                 var userId = User.Identity.GetUserId();
                 var pastLogin = db.PastMember.AsNoTracking().FirstOrDefault(x => x.PastMemberId == userId);
-                var firstname = pastLogin.Firstname;
-                if (String.IsNullOrEmpty(firstname))
+                if(pastLogin == null)
                 {
                     return RedirectToAction("ProfileUpdate", "PastMembers");
                 }

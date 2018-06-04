@@ -48,13 +48,12 @@ namespace NaccNig.Controllers
             int totalActive = totalActiveMale + totalActiveFemale;
             int totalPast = totalPastMale + totalPastFemale;
             int totalMember = totalPast + totalActive;
-            int blog = await db.Articles.AsNoTracking().CountAsync();
+            int blog = await db.Post.AsNoTracking().CountAsync();
+            //int newUser = await db.ActiveMember.AsNoTracking().CountAsync(x=>x.);
 
             var activerMemberList = await db.ActiveMember.AsNoTracking().ToListAsync();
             var pastMemberList = await db.PastMember.AsNoTracking().ToListAsync();
-
-            
-
+        
 
             double valueA = totalMale * 100;
             double valueB= totalFemale * 100;
@@ -82,7 +81,7 @@ namespace NaccNig.Controllers
         [Authorize(Roles = RoleName.Admin)]
         public async Task<ActionResult> ActiveMemberlist()
         {
-            var actMem = await db.ActiveMember.AsNoTracking().ToListAsync();
+            var actMem = await db.ActiveMember.AsNoTracking().Include(x=>x.StateChapter).ToListAsync();
             if (actMem == null)
             {
                return  ViewBag.Message = "No Registered Active Member(s) yet!";
