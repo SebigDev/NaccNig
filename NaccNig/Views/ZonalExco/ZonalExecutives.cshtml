@@ -1,0 +1,95 @@
+﻿@model IEnumerable<NaccNigModels.Executives.ZonalExco>
+@using NaccNig.Models
+
+@{
+    ViewBag.Title = "ZonalExcecutives";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@if (User.IsInRole(RoleName.Admin))
+{
+    <h2>ZonalExcecutives</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ActiveMember.Fullname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Portfolio.PortfolioName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZonalChapter.ZoneName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZoneId)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActiveMember.Fullname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Portfolio.PortfolioName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZonalExcoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZonalChapter.ZoneName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+@if (User.IsInRole(RoleName.ActiveMember))
+{
+    <div class="row">
+        <div class="col-md-10 offset-1">
+
+       
+            <table class="table table-hover">
+                <tr>
+                    <th>Photo</th>
+                    <th>Fullname</th>
+                    <th>Position</th>
+                    <th>State Code</th>
+                    <th>Gender</th>
+                    <th>Phone Number</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <p class="text-left">@item.ZonalChapter.ZoneName Executives</p>
+                    <tr>
+                       
+                        <td><img src="@Url.Content(item.ActiveMember.Photo)" width="30" height="30" class="img-circle"/></td>
+                        <td>@item.ActiveMember.Fullname</td>
+                        <td>@item.Portfolio.PortfolioName</td>
+                        <td>@item.ActiveMember.StateCode</td>
+                        <td>@item.ActiveMember.Gender</td>
+                        <td>@item.ActiveMember.PhoneNumber</td>
+                        <td>
+                            <a class="btn btn-primary" href="@Url.Action("ExecutiveDetails","ZonalExco",
+                       new {id = item.ZonalExcoId})">View Detail</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}

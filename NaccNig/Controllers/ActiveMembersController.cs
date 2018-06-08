@@ -10,8 +10,6 @@ using NaccNig.Models;
 using NaccNig.ViewModels;
 using System.IO;
 using System.Collections.Generic;
-using System.Configuration;
-using Paystack.Net.SDK.Transactions;
 using NaccNigModels.Members;
 using NaccNigModels.Structures;
 using NaccNigModels.PopUp;
@@ -35,13 +33,13 @@ namespace NaccNig.Controllers
         {
             return View(db.ActiveMember.ToList());
         }
-        public ActionResult Dashboard()
+        public async Task<ActionResult> Dashboard()
         {
             var model = new MemberDashboardVM();
             var userId = User.Identity.GetUserId();
             var activeId = userId;
-            var activeUser = db.ActiveMember.AsNoTracking()
-                                     .FirstOrDefault(a => a.ActiveMemberId.Equals(activeId));
+            var activeUser = await db.ActiveMember.AsNoTracking()
+                                     .FirstOrDefaultAsync(a => a.ActiveMemberId.Equals(activeId));
             var stateChapter = StateChapter.GetStateChapters().FirstOrDefault();
             var zone = Zone.GetZones().FirstOrDefault();
            
@@ -69,6 +67,11 @@ namespace NaccNig.Controllers
                 model.Zone = zone.ZoneName;
                
             }
+            var memberfee = await db.MemberFeeType.Include(m=>m.MembershipFee).AsNoTracking().ToListAsync();
+            
+            ViewBag.MemberFee = memberfee;
+
+               
             var myPix = model.Photo;
            
             ViewBag.Photo = myPix;
@@ -130,8 +133,7 @@ namespace NaccNig.Controllers
                 activeMember.ImageFile.SaveAs(fileName);
                 db.ActiveMember.Add(activeMember);
                 await db.SaveChangesAsync();
-
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Dashboard");
             }
             var myGender = from Gender s in Enum.GetValues(typeof(Gender))
                            select new { ID = s, Name = s.ToString() };

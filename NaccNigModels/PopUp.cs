@@ -27,7 +27,7 @@ namespace NaccNigModels.PopUp
 
     public enum PaymentType
     {
-        MembershipRegistration,
+        MembershipRegistration = 1,
         MonthlyDues
     }
     public enum RemitaPaymentType

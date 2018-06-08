@@ -1,0 +1,29 @@
+﻿@model IEnumerable<NaccNigModels.Executives.ZonalChapter>
+
+@{
+    ViewBag.Title = "GetZone";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<h2>Get Zone</h2>
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <table class="table table-hover">
+            <tr>
+                <th>#</th>
+                <th>Zonal Name </th>
+                <th></th>
+            </tr>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.ZoneName</td>
+                    <td><a class="btn btn-primary" href="@Url.Action("ZonalExecutives","ZonalExco",
+                       new {id = item.Id})">View Executives</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

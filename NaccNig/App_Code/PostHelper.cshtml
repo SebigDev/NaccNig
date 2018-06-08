@@ -40,62 +40,73 @@ using Microsoft.AspNet.Identity;
             </div>
         }
 
-    </div>
-
-    if (showComments)
-    {
-        <div>
-            <a id="comments"></a>
-            @foreach (NaccNig.Models.BlogPost.Comment comment in post.Comments.OrderBy(x => x.DateTime))
+                </div>
+            if (Request.IsAuthenticated)
             {
 
-                <div class="comment">
-                    <div class="comment clearfix">
-                        @if (!string.IsNullOrWhiteSpace(comment.Email))
+
+                if (showComments)
+                {
+                    <div>
+                        <a id="comments"></a>
+                        @foreach (NaccNig.Models.BlogPost.Comment comment in post.Comments.OrderBy(x => x.DateTime))
                         {
-                            <div class="clearfix">
-                                <h4 class="pull-left"><a href="mailto:@comment.Email">@comment.Name</a></h4>
-                                <h4 class="pull-right">at @comment.DateTime.ToString("HH:mm") on @comment.DateTime.ToLongDateString()</h4>
+
+                            <div class="comment">
+                                <div class="comment clearfix">
+                                    @if (!string.IsNullOrWhiteSpace(comment.Email))
+                                    {
+                                        <div class="clearfix">
+                                            <h4 class="pull-left"><a href="mailto:@comment.Email">@comment.Name</a></h4>
+                                            <h4 class="pull-right">at @comment.DateTime.ToString("HH:mm") on @comment.DateTime.ToLongDateString()</h4>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="clearfix">
+                                            @comment.Name
+                                            <h4 class="pull-right">at @comment.DateTime.ToString("HH:mm") on @comment.DateTime.ToString("dd/MM/yyyy")</h4>
+                                        </div>
+                                    }
+                                </div>
+                                said:
+                                <div class="clearfix"><p> <em>@html.Raw(html.Encode(comment.Body).Replace("\n", "<br/>")) </em></p></div>
+                                @*<div class="clearfix">at @comment.DateTime.ToString("HH:mm") on @comment.DateTime.ToString("yyyy/MM/dd")</div>*@
+                                @if (isAdmin)
+                                {
+                                    <div class="commentControlPanel">
+                                        <a href="@Href("~/Posts/DeleteComment/" + post.ID)">Delete</a>
+                                    </div>
+                                }
                             </div>
                         }
-                        else
-                        {
-                            <div class="clearfix">
-                                @comment.Name
-                                <h4 class="pull-right">at @comment.DateTime.ToString("HH:mm") on @comment.DateTime.ToString("dd/MM/yyyy")</h4>
-                            </div>
-                        }
-                    </div>
-                    said:
-                    <div class="clearfix"><p> <em>@html.Raw(html.Encode(comment.Body).Replace("\n", "<br/>")) </em></p></div>
-                    @*<div class="clearfix">at @comment.DateTime.ToString("HH:mm") on @comment.DateTime.ToString("yyyy/MM/dd")</div>*@
-                    @if (isAdmin)
-                    {
-                        <div class="commentControlPanel">
-                            <a href="@Href("~/Posts/DeleteComment/" + post.ID)">Delete</a>
-                        </div>
-                    }
-                </div>
-            }
-            <br /><br />
-            <div class="well">
-                <h3 class="text-success">Leave a Comment</h3>
-                <form action="@Href("~/Posts/Comment/" + post.ID)" method="post" role="form" class="">
-                     <label for="name">Name</label>
-                        <input type="text" class="form-control" id="commentNamePrompt" name="name" placeholder="Enter your Name" /> <br />
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="commentNamePrompt" name="email" placeholder="Enter Your Email Address" /><br />
-                    <div class="form-group">
-                        <label for="comment">Comment</label>
-                        <textarea  class="form-control" name="body" placeholder="Enter Your Comment"></textarea> <br />
+                        <br /><br />
+                        <div class="well">
+                            <h3 class="text-success">Leave a Comment</h3>
+                            <form action="@Href("~/Posts/Comment/" + post.ID)" method="post" role="form" class="">
+                                 <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="commentNamePrompt" name="name" placeholder="Enter your Name" /> <br />
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="commentNamePrompt" name="email" placeholder="Enter Your Email Address" /><br />
+                                <div class="form-group">
+                                    <label for="comment">Comment</label>
+                                    <textarea  class="form-control" name="body" placeholder="Enter Your Comment"></textarea> <br />
                      
+                                </div>
+                                <input type="submit" id="commentSubmit" name="submit" value="Submit" class="btn btn-lg btn-success" />
+                            </form>
+                        </div>
                     </div>
-                    <input type="submit" id="commentSubmit" name="submit" value="Submit" class="btn btn-lg btn-success" />
-                </form>
-            </div>
-        </div>
 
 
     }
+}
+else
+{
+   <p>
+       To Post comment(s) on this topic, you must 
+    <a class="" href="@Href("~/account/login")">Login</a>
+   </p>
+}
 }
 

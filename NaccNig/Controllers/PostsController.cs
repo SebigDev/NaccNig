@@ -120,7 +120,7 @@ namespace NaccNig.Controllers
             ViewBag.IsAdmin = IsAdmin;
             return View(post);
         }
-
+        [Authorize]
         [ValidateInput(false)]
         public ActionResult Comment(int id, string name, string email, string body)
         {
@@ -149,7 +149,7 @@ namespace NaccNig.Controllers
 
             return RedirectToAction("Index");
         }
-
+        [Authorize]
         public ActionResult DeleteComment(int id)
         {
             if (IsAdmin)
@@ -234,7 +234,7 @@ namespace NaccNig.Controllers
         public PartialViewResult Menu()
         {
             IEnumerable<string> categories = _db.Post.Select(s => s.Title)
-                                                            .OrderBy(s => s)
+                                                            .OrderByDescending(s => s)
                                                             .Take(5);
             return PartialView(categories);
         }

@@ -28,6 +28,8 @@ namespace NaccNig.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+           var blog = db.Post.Include(b => b.Comments).Include(b => b.Tags).AsNoTracking();
+            ViewBag.Blog = blog;
             return View();
         }
        
@@ -53,14 +55,10 @@ namespace NaccNig.Controllers
 
             var activerMemberList = await db.ActiveMember.AsNoTracking().ToListAsync();
             var pastMemberList = await db.PastMember.AsNoTracking().ToListAsync();
-        
 
-            double valueA = totalMale * 100;
-            double valueB= totalFemale * 100;
 
-            double malePercentage = Math.Round(valueA / totalMale, 2);
-            double femalePercentage = Math.Round(valueB/ totalFemale, 2);
-            double totalPercentage = 100;
+            double maleRatio = totalMale * 100 / totalMember;
+            double femaleRatio = totalFemale * 100 / totalMember;
 
             ViewBag.TotalActiveMale = totalActiveMale;
             ViewBag.TotalPastMale = totalPastMale;
@@ -68,9 +66,8 @@ namespace NaccNig.Controllers
             ViewBag.TotalFemale = totalFemale;
             ViewBag.TotalActive = totalActive;
             ViewBag.TotalPast = totalPast;
-            ViewBag.MalePercentage = malePercentage;
-            ViewBag.FemalePercentage = femalePercentage;
-            ViewBag.TotalPercentage = totalPercentage;
+            ViewBag.MalePercentage = maleRatio;
+            ViewBag.FemalePercentage = femaleRatio;
             ViewBag.ActiveMemberList = activerMemberList;
             ViewBag.PastMemberList = pastMemberList;
             ViewBag.TotalMember = totalMember;

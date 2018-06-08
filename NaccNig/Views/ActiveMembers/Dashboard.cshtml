@@ -81,22 +81,18 @@
                         <table class="table">
                             <tr>
                                 <th>#</th>
-                                <th>Category</th>
+                                <th>Fee Name</th>
                                 <th>Amount</th>
                             </tr>
-                            @*@foreach (var item in ViewBag.List)
-                            {
+                            @foreach (var item in ViewBag.MemberFee)
+                            {   <tr>
 
-                                <tr>
-
-                                    <td>@item.PaymentCategoryId</td>
-                                    <td><a href="@Url.Action("Payment","ActiveMembers")">@item.CategoryName</a></td>
-                                    <td>@Model.Amount.ToString("#,##,00.00")</td>
+                                    <td>@item.MemberFeeTypeId </td>
+                                    <td><a href="@Url.Action("MakePayment","MembershipFees")">@item.FeeName</a></td>
+                                    <td>#@item.Amount.ToString("#,##,00.00")</td>
 
                                 </tr>
-
-
-                            }*@
+                                }
 
                         </table>
                     </div>
@@ -113,10 +109,13 @@
         <div class="col-xs-6 col-md-3">
             <div class="panel panel-default">
                 <div class="panel-body easypiechart-panel">
-                    <h4>New Users</h4>
-                    <div class="easypiechart" id="easypiechart-teal" data-percent="56">
-                        <span class="percent">56%</span>
-                    </div>
+                    <h4>NACC Executives</h4>
+                    <p class="percent">
+                        @Html.ActionLink("State Executives", "StateExecutives", "StateExco")
+                    </p>
+                    <p class="percent">
+                        @Html.ActionLink("Zonal Executives", "GetZone", "ZonalExco")
+                    </p>
                 </div>
             </div>
         </div>

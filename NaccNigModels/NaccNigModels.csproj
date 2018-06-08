@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Executives\Executives.cs" />
     <Compile Include="Members\ActiveMember.cs" />
     <Compile Include="Members\ExecutiveMember.cs" />
     <Compile Include="Members\PastMember.cs" />

@@ -95,170 +95,41 @@
             </div>
         </div>
     </div>
-    <!-- Stats -->
-    <div class="stats-agileits" id="stats">
-        <div class="container">
-            <h3 class="title-w3-agile">Stats</h3>
-            <div class="stats-info agileits w3layouts">
-                <div class="col-md-3 col-sm-6 col-xs-6 agileits w3layouts stats-grid stats-grid-1">
-                    <div class=" agileits-w3layouts counter">3500</div>
-                    <div class="stat-info-w3ls">
-                        <h4 class="agileits w3layouts">clients</h4>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-6 agileits w3layouts stats-grid stats-grid-2">
-
-                    <div class=" agileits-w3layouts counter">650</div>
-                    <div class="stat-info-w3ls">
-                        <h4 class="agileits w3layouts ">Plans</h4>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-6 stats-grid agileits w3layouts stats-grid-3">
-
-                    <div class=" agileits-w3layouts counter">1021</div>
-                    <div class="stat-info-w3ls">
-                        <h4 class="agileits w3layouts ">projects</h4>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-6 stats-grid agileits w3layouts stats-grid-4">
-
-                    <div class=" agileits-w3layouts counter">1010</div>
-                    <div class="stat-info-w3ls">
-                        <h4 class="agileits w3layouts">Likes</h4>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- //Stats -->
+ 
     <!--news-->
     <div class="event-more" id="evennts">
         <div class="container">
             <h3 class="title-w3-agile">Blog</h3>
             <div class="w3_agile_grids">
-                <div class="col-md-4 col-sm-4 services-left">
-                    <div class="w3_agileits_events_grid" data-aos="zoom-in">
-                        <div class="wthree_events_grid">
-                            <div class="wthree_events_grid1">
-                                <img src="images/g1.jpg" alt=" " class="img-responsive">
-                            </div>
-                            <div class="agileinfo_events_grid1">
-                                <h5><a href="#" data-toggle="modal" data-target="#myModal"> Lorem Ipsum passage,</a></h5>
-                                <p class="para-agileits-w3layouts">
-                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                                    praesentium
-                                </p>
-                                <div class="more-bttn">
-                                    <a href="#" data-toggle="modal" data-target="#myModal">Read more..</a>
-                                </div>
-                            </div>
+                @foreach (var item in ViewBag.Blog)
+    {
+            <div class="col-md-4 col-sm-4 services-left">
+                <div class="w3_agileits_events_grid" data-aos="zoom-in">
+                    <div class="wthree_events_grid">
+                        <div class="wthree_events_grid1">
+                            <img src="images/g1.jpg" alt=" " class="img-responsive">
                         </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="col-md-4 col-sm-4 services-left middle">
-                    <div class="w3_agileits_events_grid" data-aos="zoom-in">
-                        <div class="wthree_events_grid">
-                            <div class="wthree_events_grid1">
-                                <img src="images/g2.jpg" alt=" " class="img-responsive">
-                            </div>
-                            <div class="agileinfo_events_grid1">
-                                <h5><a href="#" data-toggle="modal" data-target="#myModal"> Lorem Ipsum passage,</a></h5>
-                                <p class="para-agileits-w3layouts">
-                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                                    praesentium
-                                </p>
-                                <div class="more-bttn">
-                                    <a href="#" data-toggle="modal" data-target="#myModal">Read more..</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="col-md-4 col-sm-4 services-left">
-                    <div class="w3_agileits_events_grid" data-aos="zoom-in">
-                        <div class="wthree_events_grid">
-                            <div class="wthree_events_grid1">
-                                <img src="images/g1.jpg" alt=" " class="img-responsive">
-                            </div>
-                            <div class="agileinfo_events_grid1">
-                                <h5><a href="#" data-toggle="modal" data-target="#myModal"> Lorem Ipsum passage,</a></h5>
-                                <p class="para-agileits-w3layouts">
-                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                                    praesentium
-                                </p>
-                                <div class="more-bttn">
-                                    <a href="#" data-toggle="modal" data-target="#myModal">Read more..</a>
-                                </div>
+                        <div class="agileinfo_events_grid1">
+                            <h5><a href="@Url.Action("Details","Posts",new { id=item.ID})">@item.Title</a></h5>
+                            <p class="para-agileits-w3layouts">
+                                @item.Body.Remove(150)
+                            </p>
+                            <div class="more-bttn">
+                                <a href="@Url.Action("Details","Posts",new { id=item.ID})">Read more..</a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="clearfix"></div>
+            </div>
+}
+
+
             </div>
             <div class="clearfix"> </div>
         </div>
     </div>
-    <!-- bootstrap-pop-up -->
-    <div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Housing
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <img src="images/img2.jpg" alt=" " width="700" height="300" class="img-responsive" />
-                    <p>
-                        Ut enim ad minima veniam, quis nostrum
-                        exercitationem ullam corporis suscipit laboriosam,
-                        nisi ut aliquid ex ea commodi consequatur? Quis autem
-                        vel eum iure reprehenderit qui in ea voluptate velit
-                        esse quam nihil molestiae consequatur, vel illum qui
-                        dolorem eum fugiat quo voluptas nulla pariatur.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //bootstrap-pop-up -->
     <!--//news-->
-    <!--video-->
-    <div class="play">
-        <div class=" pope banner-agileits-btm" id="video">
-            <div class="button">
-
-                <a href="#small-dialog1" class="play-icon popup-with-zoom-anim"><span class="fa fa-play-circle" aria-hidden="true"></span></a>
-            </div>
-            <div id="small-dialog1" class="mfp-hide w3ls_small_dialog wthree_pop">
-                <div class="agileits_modal_body">
-                    <iframe src="https://player.vimeo.com/video/106770833"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <div class="matter">
-            <h2>Get More..</h2>
-            <div class="some-text">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit, sed do eiusmod tempor incididunt ut minim veniam,
-                    labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi
-                    esse quam nihil molestiae consequatur, vel illum qui
-                    dolorem eum fugiat quo voluptas nulla pariatur.
-                </p>
-            </div>
-            <div class="some-text-one">
-                <a href="#" data-toggle="modal" data-target="#myModal">Read more..</a>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-    <!--//video-->
-    <!--subscribe-->
     <div class="subscribe">
         <div class="container">
             <div class="rows">

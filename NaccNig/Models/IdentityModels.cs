@@ -7,6 +7,7 @@ using NaccNigModels.Members;
 using NaccNigModels.Structures;
 using NaccNig.Models.BlogPost;
 using NaccNigModels.PaymentSettings;
+using NaccNigModels.Executives;
 
 namespace NaccNig.Models
 {
@@ -40,17 +41,20 @@ namespace NaccNig.Models
         public DbSet<ExecutiveMember> ExecutiveMember { get; set; }
         public DbSet<StateChapter> StateChapter { get; set; }
         public DbSet<Zone> Zone { get; set; }
-       
-        public DbSet<Post> Post { get; set; }
+        public DbSet<StateExco> StateExco { get; set; }
+        public DbSet<ZonalExco> ZonalExco { get; set; }
+        public DbSet<ZonalChapter> ZonalChapter { get; set; }
+        public DbSet<Portfolio> Portfolio { get; set; }
 
+
+        //Posts
+        public DbSet<Post> Post { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<Tag>Tag { get; set; }
 
         //Remitta
         public DbSet<MembershipFee> MembershipFee { get; set; }
-
-        //public DbSet<FeeCategory> FeeCategory { get; set; }
 
         public DbSet<MemberFeeType> MemberFeeType { get; set; }
 

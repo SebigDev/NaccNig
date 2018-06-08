@@ -1,0 +1,51 @@
+﻿@model NaccNigModels.Executives.ZonalExco
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ZonalExco</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ActiveMember.StateCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActiveMember.StateCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Portfolio.PortfolioName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Portfolio.PortfolioName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ZonalExcoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZonalExcoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ZoneId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZoneId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

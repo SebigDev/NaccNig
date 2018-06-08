@@ -1,0 +1,42 @@
+﻿@model NaccNig.ViewModels.StateExcoDetailVM
+@{
+    ViewBag.Title = "StateExcoDetail";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <div class="jumbotron" style="background-color:lightgray">
+            <p style="float:right" class="btn-sm btn-info">@Html.ActionLink("Back","StateExecutives", "StateExco")</p>
+
+            @if (Model.Photo != null)
+    {
+        <p>
+            <img src="@Url.Content(Model.Photo)" class="img-rounded" height="100" width="100" />
+        </p>
+}
+            <p>
+                <b>Full Name </b>: @Model.Fullname
+            </p>
+            <p>
+                <b> Portfolio</b>: @Model.PortfolioName
+            </p>
+            <p>
+                <b> Contact</b>: @Model.PhoneNumber
+            </p>
+            <p>
+                <b>State Code </b>: @Model.StateCode
+            </p>
+            <p>
+                <b>State Of Origin</b>: @Model.StateOfOrigin
+            </p>
+            <p>
+                <b>Gender</b> : @Model.Gender
+            </p>
+            <p>
+                <b>Address</b>: @Model.Address
+            </p>
+        </div>
+    </div>
+</div>

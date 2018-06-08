@@ -1,4 +1,5 @@
-﻿<!DOCTYPE HTML>
+﻿@using NaccNig.Models
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>@ViewBag.Title</title>
@@ -16,9 +17,30 @@
     <link href="~/Content/Default/font-awesome.min.css" rel="stylesheet" />
     <!--Icons-->
     <script src="~/Scripts/Dashboard/lumino.glyphs.js"></script>
+
 </head>
 <body>
+    <br />
     <div class="container body-content">
+        
+        
+               @if (Request.IsAuthenticated)
+               {
+
+
+                if (User.IsInRole(RoleName.Admin))
+                {
+                <a class="btn-sm btn-default" href="@Url.Action("Dashboard", "Home")">Back To Dashboard</a>
+                }
+                else
+                {
+           <a class="btn-sm btn-default"  href="@Url.Action("Dashboard", "ActiveMembers")">Back To Dashboard</a>
+                }
+                <a class="btn-sm btn-default"  href="@Url.Action("Index", "Home")">Back To Homepage</a>
+               }
+            
+               
+
         @RenderBody()
         <hr />
         <footer>

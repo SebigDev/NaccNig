@@ -1,0 +1,38 @@
+﻿@model IEnumerable<NaccNigModels.Executives.StateExco>
+@{
+    ViewBag.Title = "StateExecutives";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<div class="row">
+    <table class="table table-hover table-responsive">
+        <tr>
+            <th>#</th>
+            <th>Picture</th>
+            <th>Fullname</th>
+            <th>State Code</th>
+            <th>Phone Number</th>
+            <th>Portfolio</th>
+            <th>Gender</th>
+            <th>State Of Origin</th>
+            <th></th>
+
+        </tr>
+        @foreach(var person in Model)
+        {
+        <tr>
+            <td>@person.StateExcoId</td>
+            <td><img src="@Url.Content(person.ActiveMember.Photo)" class="img-circle" height="50" width="50" /></td>
+            <td>@person.ActiveMember.Fullname</td>
+            <td>@person.ActiveMember.StateCode</td>
+            <td>@person.ActiveMember.PhoneNumber</td>
+            <td>@person.Portfolio.PortfolioName</td>
+            <td>@person.ActiveMember.Gender</td>
+            <td>@person.ActiveMember.StateOfOrigin</td>
+
+            <td><a href="@Url.Action("StateExcoDetail","StateExco", new { id = person.StateExcoId})">View Exco Detail</a></td>
+        </tr>
+        }
+    </table>
+</div>
+
